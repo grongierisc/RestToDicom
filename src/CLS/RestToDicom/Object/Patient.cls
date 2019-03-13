@@ -1,4 +1,4 @@
-Class RestToDicom.Object.Patient Extends %SerialObject
+Class RestToDicom.Object.Patient Extends (%SerialObject, %XML.Adaptor)
 {
 
 Property PatientName As %String;

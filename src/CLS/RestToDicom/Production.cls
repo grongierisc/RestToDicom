@@ -101,23 +101,9 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="IPPort">1112</Setting>
     <Setting Target="Adapter" Name="IPAddress">localhost</Setting>
   </Item>
-  <Item Name="EnsLib.DICOM.Operation.TCP" Category="" ClassName="EnsLib.DICOM.Operation.TCP" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-  <Setting Target="Host" Name="InactivityTimeout">0</Setting>
-  <Setting Target="Host" Name="DuplexTargetConfigName">RestToDicom.Process.Modality</Setting>
-  <Setting Target="Adapter" Name="LocalAET">ENS-SCU</Setting>
-  <Setting Target="Adapter" Name="RemoteAET">ENS-SCP</Setting>
-  <Setting Target="Adapter" Name="TraceVerbosity">2</Setting>
-  <Setting Target="Adapter" Name="JobPerConnection">0</Setting>
-  <Setting Target="Adapter" Name="IPPort">1112</Setting>
-  <Setting Target="Adapter" Name="IPAddress">localhost</Setting>
-</Item>
   <Item Name="PROC_DICOM" Category="" ClassName="RestToDicom.Process.Dicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
     <Setting Target="Host" Name="OperationDuplexName">DICOM_TO_TCP</Setting>
-  </Item>
-  <Item Name="RestToDicom.Process.Modality" Category="" ClassName="RestToDicom.Process.Modality" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Host" Name="InactivityTimeout">0</Setting>
-    <Setting Target="Host" Name="OperationDuplexName">EnsLib.DICOM.Operation.TCP</Setting>
   </Item>
   <Item Name="PROC_RESTTODICOM" Category="" ClassName="RestToDicom.Process.RestToDicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>

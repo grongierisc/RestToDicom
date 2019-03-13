@@ -74,34 +74,14 @@ Method OnMessage(pSourceConfigName As %String, pInput As %Library.Persistent) As
 
             if (tMsgType="C-ECHO-RSP"){
                 //Methode CreateEchoResponse
-                Set tSC=..CreateEchoResponse(.pResponse)
+                Set tSC=..CreateEchoResponse()
+                If $$$ISERR(tSC) Quit
             } elseif ((tMsgType="C-FIND-RSP")){
                 //Methode CreateFindResponse
 
-                Set tLast=pInput.GetValueAt("CommandSet.Status",,.tSC)
+                Set tSC=..CreateFindResponse(pInput)
                 If $$$ISERR(tSC) Quit
                 
-                If tLast'=0 {
-                    
-                    Set ..ResponseCount=..ResponseCount+1
-                    
-                    If ..ResponseCount=..CancelThreshold {
-                        
-                        Set tSC=..CreateCancelRequest(.tCancelRequest)
-                        If $$$ISERR(tSC) Quit
-                        
-                        #; No response required    
-                        Set tSC=..SendRequestAsync(..OperationDuplexName,tCancelRequest,0)
-                    }
-        
-                    Do ..TraceMessage("more find responses to come")  
-                    
-                } else {
-                    
-                    Do ..TraceMessage("received last response")
-                    
-                    Set tSC=..ReleaseAssociation(..OperationDuplexName)
-                }
 
             } else { //Error
 
@@ -317,14 +297,46 @@ Method CreateEchoResponse(Output pResponse As Ens.StringResponse) As %Status
 }
 
 /// Create an Find Response
-Method CreateFindResponse(Output pResponse As Ens.StringResponse) As %Status
+Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
 {
             #dim tSC As %Status =$$$OK
             #dim tTemp As %String
             
             try {
                 
-                set pResponse = ##class(Ens.StringResponse).%New("OK")
+                Set tLast=pInput.GetValueAt("CommandSet.Status",,.tSC)
+                If $$$ISERR(tSC) Quit
+
+                If ..Response="" {
+
+                    Set ..Response = ##class(RestToDicom.Message.DicomResponse).%New()
+                    Set ..Response.Documents = ##class(%ListOfObjects).%New()
+
+                }
+                
+                If tLast'=0 {
+                    
+                    Set ..ResponseCount=..ResponseCount+1
+
+                    Do ..Response.Documents.Insert(pInput)
+                    
+                    If ..ResponseCount=..CancelThreshold {
+                        
+                        Set tSC=..CreateCancelRequest(.tCancelRequest)
+                        If $$$ISERR(tSC) Quit
+                        
+                        #; No response required    
+                        Set tSC=..SendRequestAsync(..OperationDuplexName,tCancelRequest,0)
+                    }
+        
+                    Do ..TraceMessage("more find responses to come")  
+                    
+                } else {
+                    
+                    Do ..TraceMessage("received last response")
+                    
+                    Set tSC=..ReleaseAssociation(..OperationDuplexName)
+                }
                 
             } catch {
                 Set tSC=$$$EnsSystemError

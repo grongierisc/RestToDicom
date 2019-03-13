@@ -2,12 +2,42 @@
 Class RestToDicom.Process.RestToDicom Extends Ens.BusinessProcessBPL
 {
 
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
+
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
-<process language='objectscript' request='RestToDicom.Message.DicomRequest' response='Ens.Response' height='2000' width='2000' >
-<sequence xend='200' yend='350' >
-<call name='CallDicomProcess' target='PROC_DICOM' async='0' xpos='200' ypos='250' >
+<process language='objectscript' request='RestToDicom.Message.DicomRequest' response='RestToDicom.Message.PatientsResponse' height='2000' width='2000' >
+<context>
+<property name='DicomDocuments' type='EnsLib.DICOM.Document' collection='list' instantiate='0' />
+<property name='key' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='50' />
+</parameters>
+</property>
+<property name='Patient' type='RestToDicom.Object.Patient' instantiate='0' />
+</context>
+<sequence xend='200' yend='700' >
+<if name='FIND ?' condition='request.RequestType="FIND"' xpos='200' ypos='250' xend='200' yend='600' >
+<true>
+<call name='CallDicomProcessFind' target='PROC_DICOM' async='0' xpos='470' ypos='400' >
+<request type='RestToDicom.Message.DicomRequest' >
+<assign property="callrequest" value="request" action="set" />
+</request>
+<response type='RestToDicom.Message.DicomResponse' >
+<assign property="context.DicomDocuments" value="callresponse.Documents" action="set" />
+</response>
+</call>
+<foreach name='PourChaqueDocument' property='context.DicomDocuments' key='context.key' xpos='470' ypos='500' xend='200' yend='450' >
+<transform name='DicomToObject' class='RestToDicom.Transformation.DicomDocumentToPatient' source='context.DicomDocuments.GetAt(context.key)' target='context.Patient' xpos='200' ypos='250' />
+<assign name="Set Response" property="response.Patients" value="context.Patient" action="append" xpos='200' ypos='350' />
+</foreach>
+</true>
+<false>
+<call name='CallDicomProcessEcho' target='PROC_DICOM' async='0' xpos='200' ypos='400' >
 <request type='RestToDicom.Message.DicomRequest' >
 <assign property="callrequest" value="request" action="set" />
 </request>
@@ -15,13 +45,10 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="response" value="callresponse" action="set" />
 </response>
 </call>
+</false>
+</if>
 </sequence>
 </process>
-}
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
 }
 
 }

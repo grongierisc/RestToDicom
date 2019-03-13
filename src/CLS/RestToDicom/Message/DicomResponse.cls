@@ -1,7 +1,7 @@
 Class RestToDicom.Message.DicomResponse Extends Ens.Response
 {
 
-Property Patients As list Of RestToDicom.Object.Patient;
+Property Documents As list Of EnsLib.DICOM.Document;
 
 Storage Default
 {
@@ -9,6 +9,9 @@ Storage Default
 <Subscript>"DicomResponse"</Subscript>
 <Value name="1">
 <Value>Patients</Value>
+</Value>
+<Value name="2">
+<Value>Documents</Value>
 </Value>
 </Data>
 <DefaultData>DicomResponseDefaultData</DefaultData>
