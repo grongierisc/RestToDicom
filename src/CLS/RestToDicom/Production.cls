@@ -107,6 +107,8 @@ XData ProductionDefinition
   </Item>
   <Item Name="PROC_RESTTODICOM" Category="" ClassName="RestToDicom.Process.RestToDicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
+  <Item Name="WS_REST" Category="" ClassName="RestToDicom.Service.RestToDicom" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 
