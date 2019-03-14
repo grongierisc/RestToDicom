@@ -7,7 +7,7 @@ XData Install [ XMLNamespace = INSTALLER ]
 {
 <Manifest>
 
- <Role Name="AppRole" Description="Role to access and use the App" Resources="%DB_IRISSYS:RW,%Admin_Secure:U" />
+ <Role Name="AppRole" Description="Role to access and use the App" Resources="%DB_IRISSYS:RW,%Admin_Secure:U,%DB_%DEFAULT:RW,%DB_IRISLIB:RW" />
 
     <Log Text="Version d'IRIS ${VERSION}" Level="0"/>
 
