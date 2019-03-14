@@ -91,7 +91,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
     <Setting Target="Host" Name="NumberOfWorkListEntries">10</Setting>
   </Item>
-  <Item Name="DICOM_TO_TCP" Category="" ClassName="EnsLib.DICOM.Operation.TCP" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="DICOM_TO_TCP" Category="" ClassName="RestToDicom.Operation.DicomTCP" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
     <Setting Target="Host" Name="DuplexTargetConfigName">PROC_DICOM</Setting>
     <Setting Target="Adapter" Name="LocalAET">ENS-SCU</Setting>
