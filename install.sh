@@ -27,6 +27,7 @@ $password
 do \$system.OBJ.ImportDir("$ClassImportDir","*.cls","cubk",.errors,1)
 write "Complation de l'installer done"
 Set pVars("NAMESPACE")="$NameSpace"
+Set pVars("CSPPath")="$CspPath"
 Do ##class(App.Installer).setup(.pVars)
 zn "%SYS"
 
