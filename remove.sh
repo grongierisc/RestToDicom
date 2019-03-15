@@ -17,6 +17,7 @@ instanceName=$1
 password=$2
 namespace="RESTTODICOM"
 csppath="/api/resttodicom/v1"
+csppathfrom="/api/resttodicom/v1/patients"
 
 irissession $instanceName -U %SYS <<EOF 
 SuperUser
@@ -28,6 +29,9 @@ do:(NsEiste) ##class(%Library.EnsembleMgr).DisableNamespace("$namespace")
 
 set CspExiste = ##Class(Security.Applications).Exists("$csppath")
 do:(CspExiste) ##Class(Security.Applications).Delete("$csppath")
+
+set CspExiste = ##Class(Security.Applications).Exists("$csppathfrom")
+do:(CspExiste) ##Class(Security.Applications).Delete("$csppathfrom")
 
 set DbExiste = ##class(Config.Databases).Exists("$namespace")
 set Directory = ##class(Config.Databases).GetDirectory("$namespace")

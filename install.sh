@@ -33,10 +33,12 @@ Set pVars("CspPathPatient")="$CspPathPatient"
 Do ##class(App.Installer).setup(.pVars)
 zn "%SYS"
 
-zw ##class(Security.Applications).Import("$DIR/misc/ApplicationsExport.xml",,1)
+zw ##class(Security.Applications).Import("$DIR/misc/ApplicationsExport.xml")
 
 zn "$NameSpace"
 do \$system.OBJ.ImportDir("$SrcDir","*.*","cubk",.errors,1)
+
+Do ##class(Ens.Director).StartProduction("RestToDicom.Production")
 
 halt
 EOF
