@@ -40,7 +40,7 @@ set props("DispatchClass")="Form.REST.Main"
 set sc=##class(Security.Applications).Modify("$CspPathPatient", .props)
 
 zn "$NameSpace"
-do \$system.OBJ.ImportDir("$SrcDir","*.cls","cubk",.errors,1)
+do \$system.OBJ.ImportDir("$SrcDir","*.*","cubk",.errors,1)
 
 halt
 EOF
