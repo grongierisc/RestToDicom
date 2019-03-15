@@ -33,7 +33,7 @@ Set pVars("CspPathPatient")="$CspPathPatient"
 Do ##class(App.Installer).setup(.pVars)
 zn "%SYS"
 
-zw ##class(Security.Applications).Import("misc/ApplicationsExport.xml",,1)
+zw ##class(Security.Applications).Import("$DIR/misc/ApplicationsExport.xml",,1)
 
 zn "$NameSpace"
 do \$system.OBJ.ImportDir("$SrcDir","*.*","cubk",.errors,1)
