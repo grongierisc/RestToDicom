@@ -33,11 +33,7 @@ Set pVars("CspPathPatient")="$CspPathPatient"
 Do ##class(App.Installer).setup(.pVars)
 zn "%SYS"
 
-set props("DeepSeeEnabled")=1
-set props("DispatchClass")="RestToDicom.WS.REST.V1"
-set sc=##class(Security.Applications).Modify("$CspPath", .props)
-set props("DispatchClass")="Form.REST.Main"
-set sc=##class(Security.Applications).Modify("$CspPathPatient", .props)
+zw ##class(Security.Applications).Import("misc/ApplicationsExport.xml",,1)
 
 zn "$NameSpace"
 do \$system.OBJ.ImportDir("$SrcDir","*.*","cubk",.errors,1)
