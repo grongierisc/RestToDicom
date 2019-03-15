@@ -318,6 +318,10 @@ Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
                     
                     Set ..ResponseCount=..ResponseCount+1
 
+                    Do ##class(RestToDicom.Transformation.DicomDocumentToPatient).Transform(pInput,.doc)
+
+                    Do doc.%Save()
+
                     Do ..Response.Documents.Insert(pInput)
                     
                     If ..ResponseCount=..CancelThreshold {
