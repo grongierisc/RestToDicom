@@ -101,9 +101,12 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="IPPort">1112</Setting>
     <Setting Target="Adapter" Name="IPAddress">localhost</Setting>
   </Item>
+  <Item Name="DICOM_TO_BDD" Category="" ClassName="RestToDicom.Operation.DicomBDD" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
   <Item Name="PROC_DICOM" Category="" ClassName="RestToDicom.Process.Dicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
     <Setting Target="Host" Name="OperationDuplexName">DICOM_TO_TCP</Setting>
+    <Setting Target="Host" Name="OperationBDD">DICOM_TO_BDD</Setting>
   </Item>
   <Item Name="PROC_RESTTODICOM" Category="" ClassName="RestToDicom.Process.RestToDicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>

@@ -1,7 +1,7 @@
 Class RestToDicom.Message.DicomResponse Extends Ens.Response
 {
 
-Property Documents As list Of EnsLib.DICOM.Document;
+Property Documents As list Of EnsLib.DICOM.Document(XMLPROJECTION = "NONE");
 
 Storage Default
 {

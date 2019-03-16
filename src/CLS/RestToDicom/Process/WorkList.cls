@@ -97,7 +97,7 @@ Method OnMessage(pSourceConfigName As %String, pInput As %Library.Persistent) As
 				#; Set the timer so we are called back again, we use 1 second here
 				#; so that the user of the demo has a chance send a cancel request. In
 				#; a production implementation this should be set to 0 seconds
-				Set tSC=..ScheduleWakeupCall(1)
+				Set tSC=..ScheduleWakeupCall(0)
 			}
 			
 		} else {

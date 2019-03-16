@@ -1,23 +1,5 @@
-Class RestToDicom.Object.ScheduledProcedureStepSequence Extends (%Persistent, Form.Adaptor, %XML.Adaptor)
+Class RestToDicom.Object.ScheduledProcedureStepSequence Extends (%SerialObject, Form.Field) [ PropertyClass = Form.Field ]
 {
-
-/// Form name, not a global key so it can be anything
-/// Set to empty string (like here) to not have a class as a form 
-Parameter FORMNAME = "Patient";
-
-/// Default permissions
-/// Objects of this form can be Created, Read, Updated and Deleted
-/// Redefine this parameter to change permissions for everyone
-/// Redefine checkPermission method (see Form.Security) for this class
-/// to add custom security based on user/roles/etc.
-Parameter OBJPERMISSIONS As %String = "CRUD";
-
-/// Property used for basic information about the object
-/// By default getObjectDisplayName method gets its value from it
-Parameter DISPLAYPROPERTY As %String = "Modality";
-
-/// Use value of this parameter in SQL, as ORDER BY clause value 
-Parameter FORMORDERBY As %String = "ScheduledProcedureStepID";
 
 Property Modality As %String(DISPLAYNAME = "Modality");
 
@@ -33,35 +15,29 @@ Property ScheduledProcedureStepID As %String(DISPLAYNAME = "ScheduledProcedureSt
 
 Storage Default
 {
-<Data name="ScheduledProcedureStepSequenceDefaultData">
+<Data name="ScheduledProcedureStepSequenceState">
 <Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
 <Value>Modality</Value>
 </Value>
-<Value name="3">
+<Value name="2">
 <Value>ScheduledStationAETitle</Value>
 </Value>
-<Value name="4">
+<Value name="3">
 <Value>ScheduledProcedureStepStartDate</Value>
 </Value>
-<Value name="5">
+<Value name="4">
 <Value>ScheduledProcedureStepStartTime</Value>
 </Value>
-<Value name="6">
+<Value name="5">
 <Value>ScheduledProcedureStepDescription</Value>
 </Value>
-<Value name="7">
+<Value name="6">
 <Value>ScheduledProcedureStepID</Value>
 </Value>
 </Data>
-<DataLocation>^RestToDico95BB.ScheduledPr49D8D</DataLocation>
-<DefaultData>ScheduledProcedureStepSequenceDefaultData</DefaultData>
-<IdLocation>^RestToDico95BB.ScheduledPr49D8D</IdLocation>
-<IndexLocation>^RestToDico95BB.ScheduledPr49D8I</IndexLocation>
+<State>ScheduledProcedureStepSequenceState</State>
 <StreamLocation>^RestToDico95BB.ScheduledPr49D8S</StreamLocation>
-<Type>%Storage.Persistent</Type>
+<Type>%Storage.Serial</Type>
 }
 
 }

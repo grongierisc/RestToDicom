@@ -2,13 +2,16 @@ Class RestToDicom.Process.Dicom Extends EnsLib.DICOM.Process
 {
 
 /// This parameter names the operation used to provide storage
-Parameter SETTINGS = "OperationDuplexName,CancelThreshold";
+Parameter SETTINGS = "OperationDuplexName,CancelThreshold,OperationBDD";
 
 /// This keeps track of the current state of the process
 Property CurrentState As %String [ InitialExpression = "OperationNotConnected" ];
 
 /// This is the name of the operation providing connectivity
 Property OperationDuplexName;
+
+/// This is the name of the operation providing persitence
+Property OperationBDD;
 
 /// This is the count of incoming responses 
 Property ResponseCount As %Integer [ InitialExpression = 0 ];
@@ -315,14 +318,14 @@ Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
                 }
                 
                 If tLast'=0 {
-                    
-                    Set ..ResponseCount=..ResponseCount+1
 
-                    Do ##class(RestToDicom.Transformation.DicomDocumentToPatient).Transform(pInput,.doc)
+                    Set tRequestBDD = ##class(RestToDicom.Message.SetDicomToBddRequest).%New(..%SessionId,pInput)
 
-                    Do doc.%Save()
+                    Set tSC=..SendRequestAsync(..OperationBDD,tRequestBDD,0)
 
                     Do ..Response.Documents.Insert(pInput)
+
+                    Set ..ResponseCount=..ResponseCount+1
                     
                     If ..ResponseCount=..CancelThreshold {
                         
@@ -424,6 +427,9 @@ Storage Default
 </Value>
 <Value name="8">
 <Value>Response</Value>
+</Value>
+<Value name="9">
+<Value>OperationBDD</Value>
 </Value>
 </Data>
 <DefaultData>ModalityDefaultData</DefaultData>

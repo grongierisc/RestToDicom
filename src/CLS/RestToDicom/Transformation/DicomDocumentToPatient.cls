@@ -9,7 +9,7 @@ Parameter TREATEMPTYREPEATINGFIELDASNULL = 0;
 
 XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 {
-<transform sourceClass='EnsLib.DICOM.Document' targetClass='RestToDicom.Object.Patient' create='new' language='objectscript' >
+<transform sourceClass='EnsLib.DICOM.Document' targetClass='RestToDicom.Object.Patient' create='existing' language='objectscript' >
 <assign value='source.DataSet.GetValueAt("PatientName",0)' property='target.PatientFullName' action='set' />
 <assign value='$P(source.DataSet.GetValueAt("PatientName",0),"^",1)' property='target.PatientFirstName' action='set' />
 <assign value='$P(source.DataSet.GetValueAt("PatientName",0),"^",2)' property='target.PatientLastName' action='set' />
