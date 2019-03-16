@@ -14,18 +14,22 @@ Parameter OBJPERMISSIONS As %String = "CRUD";
 
 /// Property used for basic information about the object
 /// By default getObjectDisplayName method gets its value from it
-Parameter DISPLAYPROPERTY As %String = "PatientName";
+Parameter DISPLAYPROPERTY As %String = "PatientID";
 
 /// Use value of this parameter in SQL, as ORDER BY clause value 
-Parameter FORMORDERBY As %String = "StudyDate";
+Parameter FORMORDERBY As %String = "PatientName";
 
-Property PatientName As %String;
+Property PatientName As %String(DISPLAYNAME = "Name");
 
-Property PatientID As %String;
+Property PatientID As %String(DISPLAYNAME = "ID");
 
-Property StudyDate As %String;
+Property StudyDate As %String(DISPLAYNAME = "StudyDate");
 
-Property StudyInstanceID As %String(MAXLEN = "");
+Property PatientSize As %String(DISPLAYNAME = "Size");
+
+Property StudyInstanceID As %String(DISPLAYNAME = "Study ID", MAXLEN = "");
+
+Property TimeStamp As %Library.PosixTime(DISPLAYNAME = "Date Query") [ InitialExpression = {##class(%Library.PosixTime).CurrentTimeStamp()} ];
 
 Storage Default
 {
@@ -43,7 +47,13 @@ Storage Default
 <Value>StudyDate</Value>
 </Value>
 <Value name="5">
+<Value>PatientSize</Value>
+</Value>
+<Value name="6">
 <Value>StudyInstanceID</Value>
+</Value>
+<Value name="7">
+<Value>TimeStamp</Value>
 </Value>
 </Data>
 <DataLocation>^RestToDicom.Object.PatientD</DataLocation>

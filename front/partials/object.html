@@ -1,0 +1,34 @@
+<form name="clientForm" ng-submit="return">
+    <div class="ui container">
+        <div class="ui segment">
+            <p></p>
+            <div class="ui large header" style="margin: 10px 2px 20px;" ng-bind="ctrl.form.name + ': New object'" ng-if="!ctrl.params.id && ctrl.isCreate();"></div>
+            <div class="ui large header" style="margin: 10px 2px 20px;" ng-bind="'Object edit: ' + obj[ctrl.form.displayProperty]" ng-if="ctrl.params.id && ctrl.isUpdate();"></div>
+            <div class="ui large header" style="margin: 10px 2px 20px;" ng-bind="'Object view: ' + obj[ctrl.form.displayProperty]" ng-if="ctrl.params.id && !ctrl.isUpdate();"></div>
+            <p></p>
+
+            <div class="ui segment">
+
+                <div class="ui basic segment">
+                    <div class="ui form">
+                        <div class="fields" ng-custom-field ng-repeat="field in ctrl.fields" field-data="field">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ui basic segment clearing form-actions">
+                <div class="pull-right">
+                    <div class="ui black button" ng-click="ctrl.closeForm()">Close</div><!--
+                  --><div class="ui green right labeled icon button" ng-click="ctrl.submit('save')" 
+                          ng-class="((clientForm.$invalid) ? ' disabled' : '')" ng-if="(ctrl.isCreate() || ctrl.isUpdate()) && !(ctrl.state == 'object.open')">
+                        Save
+                        <i class="save icon"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- segment -->
+    </div><!-- container -->
+</form>

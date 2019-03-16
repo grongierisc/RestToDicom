@@ -1,0 +1,162 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>RESTFormsUI</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- CSS Initialization -->
+        <link rel="stylesheet" type="text/css" href="lib/css/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="src/css/custom.css">
+    </head>
+
+    <body ng-app="app" ng-controller="MainCtrl">
+
+        <!-- CONFIRMATION MODAL WINDOW -->
+        <div id="confirmation" class="ui basic modal" style="z-index: 1003;">
+            <i class="close icon"></i>
+            <div class="header">
+                Confirmation
+            </div>
+
+            <div class="content">
+                <div class="description">
+                <p><i class="checkmark big green icon"></i> <span ng-bind="main.confirmationText || 'Are you sure you want to continue?'"></span></p>
+                </div>
+            </div>
+
+            <div class="actions">
+                <div class="ui grey deny inverted button">No</div>
+                <div class="ui green approve inverted button">Yes</div>
+            </div>
+        </div>
+        <!-- CONFIRMATION MODAL WINDOW -->
+
+
+        <nav class="ui main menu fixed" ng-show="main.loginState == 1" ng-cloak>
+            <div class="ui container" ng-cloak>
+                <div class="ui item" style="font-weight: bold;">RestToDicom</div>
+                <a ng-click="main.goMain()" class="ui item" type="button" ng-if="main.page !== 'forms'" >Main page</a>
+                <a class="ui item" type="button" ng-if="main.page == 'object'" ng-click="closeObject()">Object list</a>
+
+                <div class="right menu">
+                    <div class="ui item">
+                        <select ng-model="main.language"
+                                ng-options="lang as lang.name
+                                            for lang in main.languageList
+                                            track by lang.lang">
+                        </select>
+                    </div>
+                    <a href="" ng-show="main.loginState == 1" type="button" ng-click="main.logout();" class="ui item" tabindex="0"><span style="margin-right: 5px">Logout </span><i class="sign out icon"></i></a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="ui middle aligned center aligned grid" ng-show="main.loginState != 1" ng-cloak>
+            <div class="column login">
+
+                <h2 class="ui blue image header">
+                    <div class="content">
+                        Log into your account
+                    </div>
+                </h2>
+
+                <form class="ui large form" role="form" ng-show="main.loginState != 1" ng-model="user"
+                    ng-submit="main.doLogin(user.Login, user.PasswordSetter, server, port, webapp); user='';" ng-cloak>
+
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="email" placeholder="Username" ng-model="user.Login" ng-disabled="main.loading">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="Password" ng-model="user.PasswordSetter" ng-disabled="main.loading">
+                            </div>
+                            <p class="error" ng-show="loginError">
+                                Incorrect username and/or password
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="cloud icon"></i>
+                                <input type="text" name="server" placeholder="Server" ng-model="server" ng-disabled="main.loading">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="plug icon"></i>
+                                <input type="text" name="port" placeholder="Port" ng-model="port" ng-disabled="main.loading" />
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="code icon"></i>
+                                <input type="text" name="webapp" placeholder="Web app" ng-model="webapp" ng-disabled="main.loading">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="ui fluid large blue submit button" ng-disabled="main.loading">Login</button>
+                    </div>
+
+                    <div class="ui error message"></div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="ui container content" ng-show="main.loginState == 1">
+            <!-- Loading template -->
+            <ui-view></ui-view>
+        </div>
+
+        <div class="ui active page dimmer" id="loading-dimmer" ng-show="main.busy" ng-cloak>
+            <div class="ui large text loader">Loading</div>
+        </div>
+
+        <div id="success-dimmer" class="ui page dimmer">
+            <div class="content">
+                <h2 class="ui inverted icon header">
+                    <i class="checkmark green icon"></i>
+                    The action is completed successfully
+                </h2>
+            </div>
+        </div>
+
+
+        <!-- Hooking scripts -->
+        <script language="javascript" src="lib/js/angular.min.js"></script>
+        <script language="javascript" src="lib/js/angular-route.min.js"></script>.
+        <script language="javascript" src="lib/js/angular-ui-router.min.js"></script>
+        <script language="javascript" src="lib/js/smart-table.min.js"></script>
+        <script language="javascript" src="lib/js/angular-cookies.min.js"></script>
+        <script language="javascript" src="lib/js/base64.js"></script>
+
+        <script language="javascript" src="src/js/app.js"></script>
+
+        <script language="javascript" src="src/js/services/RESTSrvc.js"></script>
+        <script language="javascript" src="src/js/services/WorklistSrvc.js"></script>
+        <script language="javascript" src="src/js/services/SessionSrvc.js"></script>
+        <script language="javascript" src="src/js/services/UtilSrvc.js"></script>
+        <script language="javascript" src="src/js/services/FormSrvc.js"></script>
+
+        <script language="javascript" src="src/js/controllers/MainCtrl.js"></script>
+        <script language="javascript" src="src/js/controllers/FormsListCtrl.js"></script>
+        <script language="javascript" src="src/js/controllers/FormCtrl.js"></script>
+        <script language="javascript" src="src/js/controllers/ObjectCtrl.js"></script>
+
+        <script language="javascript" src="lib/js/jquery-1.11.2.min.js"></script>
+        <script language="javascript" src="lib/js/semantic.js"></script>
+
+    </body>
+</html>

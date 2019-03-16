@@ -1,0 +1,61 @@
+<div class="ui container">
+    <div class="ui segment">
+        <p></p>
+        <div class="ui large header" style="margin: 10px 2px 20px;"  ><span ng-bind="ctrl.form.name"></span><a class="ui blue right floated button" ng-click="ctrl.addNewObject()" style="margin-bottom: 15px;" ng-if="ctrl.isCreate()">Add</a></div>
+        <p></p>
+
+        <div ng-hide="main.loginState != 1 || (ctrl.loading && !ctrl.totalCnt())">
+            <div class="panel panel-default top-buffer">
+
+                <table st-safe-src="ctrl.objects" st-table="objectsDisplayed" class="ui selectable celled table table-tasks" st-class-ascent="sort icon">
+
+                    <tbody>
+                        <tr ng-repeat="row in objectsDisplayed">
+                            <td ng-click="ctrl.formRowClick(row)">
+                                <span ng-bind="row.displayName"></span>
+                            </td>
+                            <td style="width: 130px; border-left:none;" class="text-right">
+                                <div class="ui blue tiny icon button" ng-click="ctrl.editObject(row._id)" title="Edit" ng-if="ctrl.isUpdate()"><i class="icon edit"></i></div>
+                                <div class="ui teal tiny icon button" ng-click="ctrl.openObject(row._id)" title="View" ng-if="ctrl.isRead() && !ctrl.isUpdate()"><i class="icon zoom"></i></div>
+                                <div class="ui red tiny icon button" ng-click="ctrl.deleteObject(row)" title="Delete" ng-if="ctrl.isDelete()"><i class="icon remove"></i></div>
+                            </td>
+                        </tr>
+
+                        <tr ng-if="!objectsDisplayed.length">
+                            <td>
+                                <span>No elements</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="!ctrl.isRead()">
+                        <tr>
+                            <td>
+                                <span>Unfortunately, you don't have the rights to read</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="border-top: 1px solid rgba(34,36,38,.1)">
+                                <div class="ui pagination menu">
+                                    <a class="item" ng-click="ctrl.grid.itemsByPage = 5" ng-class="{active: ctrl.grid.itemsByPage == 5}">5</a>
+                                    <a class="item" ng-click="ctrl.grid.itemsByPage = 10" ng-class="{active: ctrl.grid.itemsByPage == 10}">10</a>
+                                    <a class="item" ng-click="ctrl.grid.itemsByPage = 25" ng-class="{active: ctrl.grid.itemsByPage == 25}">25</a>
+                                    <a class="item" ng-click="ctrl.grid.itemsByPage = 50" ng-class="{active: ctrl.grid.itemsByPage == 50}">50</a>
+                                    <a class="item" ng-click="ctrl.grid.itemsByPage = 100" ng-class="{active: ctrl.grid.itemsByPage == 100}">100</a>
+                                </div>
+                            </td>
+                            <td style="border: none; border-top: 1px solid rgba(34,36,38,.1)">
+                                <div st-pagination="" st-items-by-page="ctrl.grid.itemsByPage" st-displayed-pages="3"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+

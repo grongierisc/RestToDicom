@@ -13,6 +13,7 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 <assign value='source.DataSet.GetValueAt("PatientName",0)' property='target.PatientName' action='set' />
 <assign value='source.DataSet.GetValueAt("PatientID",0)' property='target.PatientID' action='set' />
 <assign value='source.DataSet.GetValueAt("StudyDate",0)' property='target.StudyDate' action='set' />
+<assign value='source.DataSet.GetValueAt("(0010,1020)",0)' property='target.PatientSize' action='set' />
 </transform>
 }
 
