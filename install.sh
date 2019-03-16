@@ -20,7 +20,8 @@ ClassImportDir=$DIR/install
 NameSpace="RESTTODICOM"
 CspPath="/api/resttodicom/v1"
 CspPathPatient="/api/resttodicom/v1/patients"
-SrcDir=$DIR/src
+DirFront=$DIR/front
+DirSrc=$DIR/src
 
 irissession $instanceName -U USER <<EOF 
 SuperUser
@@ -30,13 +31,14 @@ write "Complation de l'installer done"
 Set pVars("NAMESPACE")="$NameSpace"
 Set pVars("CSPPath")="$CspPath"
 Set pVars("CspPathPatient")="$CspPathPatient"
+Set pVars("DirFront")="$DirFront"
 Do ##class(App.Installer).setup(.pVars)
 zn "%SYS"
 
 zw ##class(Security.Applications).Import("$DIR/misc/ApplicationsExport.xml")
 
 zn "$NameSpace"
-do \$system.OBJ.ImportDir("$SrcDir","*.*","cubk",.errors,1)
+do \$system.OBJ.ImportDir("$DirSrc","*.*","cubk",.errors,1)
 
 Do ##class(Ens.Director).StartProduction("RestToDicom.Production")
 

@@ -19,7 +19,12 @@ XData Install [ XMLNamespace = INSTALLER ]
 
     <If Condition='(##class(Config.Namespaces).Exists("${NAMESPACE}")=0)'>
         <Log Text="Creating namespace ${NAMESPACE}" Level="0"/>
-            
+          
+        <CopyDir  
+        Src="${DirFront}"
+        Target="${CSPDIR}/${NAMESPACE}"
+        IgnoreErrors="0"/>
+
         <Namespace Name="${NAMESPACE}" Create="yes" Code="${NAMESPACE}" Ensemble="1" Data="${NAMESPACE}">
             <Configuration>
                 <Database Name="${NAMESPACE}" Dir="${MGRDIR}/${NAMESPACE}" Create="yes"/>
