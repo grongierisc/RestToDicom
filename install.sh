@@ -20,6 +20,7 @@ ClassImportDir=$DIR/install
 NameSpace="RESTTODICOM"
 CspPath="/api/resttodicom/v1"
 CspPathPatient="/api/resttodicom/v1/patients"
+CspFront="/worklist"
 DirFront=$DIR/front
 DirSrc=$DIR/src
 
@@ -32,6 +33,7 @@ Set pVars("NAMESPACE")="$NameSpace"
 Set pVars("CSPPath")="$CspPath"
 Set pVars("CspPathPatient")="$CspPathPatient"
 Set pVars("DirFront")="$DirFront"
+Set pVars("CspFront")="$CspFront"
 Do ##class(App.Installer).setup(.pVars)
 zn "%SYS"
 
