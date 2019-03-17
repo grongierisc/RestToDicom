@@ -5,7 +5,7 @@ info:
   title: Api RestToDicom V1 
   contact:
     email: guillaume.rongier@intersystems.com
-host: 'localhost:52775'
+host: 'localhost:52774'
 basePath: /api/resttodicom/v1
 schemes:
   - http
@@ -606,6 +606,8 @@ definitions:
   Patients:
     type: object
     properties:
+      SessionId:
+        type: integer
       Patients:
         type: array
         description: Liste des patients du RIS.
