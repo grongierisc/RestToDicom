@@ -473,6 +473,14 @@ paths:
         description: "See Above"
         required: true
         type: "string"
+      - name: "size"
+        in: "query"
+        description: "See Above"
+        type: "integer"
+      - name: "page"
+        in: "query"
+        description: "See Above"
+        type: "integer"
       security:
       - basicAuth: []
       tags:
