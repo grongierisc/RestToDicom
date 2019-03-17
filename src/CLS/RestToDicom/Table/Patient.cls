@@ -58,6 +58,9 @@ Storage Default
 <Value name="10">
 <Value>TimeStamp</Value>
 </Value>
+<Value name="11">
+<Value>ScheduledProcedureStepSequences</Value>
+</Value>
 </Data>
 <DataLocation>^RestToDicom.Table.PatientD</DataLocation>
 <DefaultData>PatientDefaultData</DefaultData>

@@ -9,8 +9,6 @@ Property PatientLastName As %String(DISPLAYNAME = "LastName");
 
 Property PatientID As %String(DISPLAYNAME = "ID");
 
-Property PatientSize As %String(DISPLAYNAME = "Size");
-
 Property StudyInstanceID As %String(DISPLAYNAME = "Study ID", MAXLEN = "");
 
 Property ScheduledProcedureStepSequence As list Of RestToDicom.Object.ScheduledProcedureStepSequence(DISPLAYNAME = "Procedure");

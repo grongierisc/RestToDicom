@@ -176,6 +176,8 @@ Method CreateIntermediateFindResponse(pDocIn As EnsLib.DICOM.Document, Output pD
 		If $$$ISERR(tSC) Quit
 		Set tSC=pDocOut.SetValueAt($Random(100),"DataSet.PatientID")
 		If $$$ISERR(tSC) Quit
+		Set tSC=pDocOut.SetValueAt($Random(100),"DataSet.PatientSize")
+		If $$$ISERR(tSC) Quit
 		Set tSC=pDocOut.SetValueAt("1.2.40.0.13.0.192.168.1.3.13594894.1206712911593."_..StudyInstanceCounter,"DataSet.StudyInstanceUID")
 		If $$$ISERR(tSC) Quit
 		Set tSC=pDocOut.SetValueAt("RequestedProcedureDescription","DataSet.RequestedProcedureDescription")
