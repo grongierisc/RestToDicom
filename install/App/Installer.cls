@@ -28,7 +28,7 @@ XData Install [ XMLNamespace = INSTALLER ]
             <CSPApplication Url="/csp/${NAMESPACE}" Directory="${CSPDIR}/${NAMESPACE}" AuthenticationMethods="64" IsNamespaceDefault="true" Grant="AppRole" />
             <CSPApplication Url="${CSPPath}" Directory="${CSPDIR}/${CSPPath}" AuthenticationMethods="64" IsNamespaceDefault="false" Grant="AppRole" />
             <CSPApplication Url="${CspPathPatient}" Directory="${CSPDIR}/${CspPathPatient}" AuthenticationMethods="64" IsNamespaceDefault="false" Grant="AppRole" />
-            <CSPApplication Url="${CspFront}" Directory="${CSPDIR}/${CspFront}" AuthenticationMethods="64" IsNamespaceDefault="false" Grant="AppRole" />
+            <CSPApplication Url="${CspFront}" Directory="${CSPDIR}/${CspFront}" AuthenticationMethods="64"  Recurse="1" IsNamespaceDefault="false" Grant="AppRole" />
 
         </Namespace>
 

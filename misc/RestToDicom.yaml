@@ -458,7 +458,7 @@ paths:
 
         <p>all?orderby=text+desc</p>
         
-        <p>all?filter=text%20eq%20A9044</p>
+        <p>all?filter=SessionId%20eq%2</p>
         
         <p>all?filter=text%20in%20A9044~B5920</p>
         
@@ -481,6 +481,10 @@ paths:
         in: "query"
         description: "See Above"
         type: "integer"
+      - name: "filter"
+        in: "query"
+        description: "See Above"
+        type: "string"
       security:
       - basicAuth: []
       tags:
