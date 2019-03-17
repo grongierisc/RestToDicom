@@ -1,6 +1,6 @@
-Class RestToDicom.Table.Patient Extends (%Persistent, RestToDicom.Object.Patient, %XML.Adaptor, Form.Adaptor)
+Class RestToDicom.Table.Patient Extends (%Persistent, RestToDicom.Object.Patient, Form.Adaptor) [ DdlAllowed ]
 {
-
+Parameter XMLTYPE = "PatientTable";
 /// Form name, not a global key so it can be anything
 /// Set to empty string (like here) to not have a class as a form 
 Parameter FORMNAME = "Patient";
@@ -18,6 +18,8 @@ Parameter DISPLAYPROPERTY As %String = "PatientFullName";
 
 /// Use value of this parameter in SQL, as ORDER BY clause value 
 Parameter FORMORDERBY As %String = "TimeStamp";
+
+Property ScheduledProcedureStepSequence As RestToDicom.Table.ScheduledProcedureStepSequence(DISPLAYNAME = "Procedure");
 
 Property SessionId As %Integer;
 
@@ -44,22 +46,16 @@ Storage Default
 <Value>PatientID</Value>
 </Value>
 <Value name="6">
-<Value>PatientSize</Value>
-</Value>
-<Value name="7">
-<Value>StudyInstanceID</Value>
-</Value>
-<Value name="8">
 <Value>ScheduledProcedureStepSequence</Value>
 </Value>
-<Value name="9">
+<Value name="7">
 <Value>SessionId</Value>
 </Value>
-<Value name="10">
+<Value name="8">
 <Value>TimeStamp</Value>
 </Value>
-<Value name="11">
-<Value>ScheduledProcedureStepSequences</Value>
+<Value name="9">
+<Value>StudyInstanceID</Value>
 </Value>
 </Data>
 <DataLocation>^RestToDicom.Table.PatientD</DataLocation>

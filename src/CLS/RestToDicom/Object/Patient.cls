@@ -1,4 +1,4 @@
-Class RestToDicom.Object.Patient Extends (%SerialObject, Form.Field) [ PropertyClass = Form.Field ]
+Class RestToDicom.Object.Patient Extends (%SerialObject, %XML.Adaptor, Form.Field) [ PropertyClass = Form.Field ]
 {
 
 Property PatientFullName As %String(DISPLAYNAME = "Name");
@@ -11,7 +11,7 @@ Property PatientID As %String(DISPLAYNAME = "ID");
 
 Property StudyInstanceID As %String(DISPLAYNAME = "Study ID", MAXLEN = "");
 
-Property ScheduledProcedureStepSequence As list Of RestToDicom.Object.ScheduledProcedureStepSequence(DISPLAYNAME = "Procedure");
+Property ScheduledProcedureStepSequence As RestToDicom.Object.ScheduledProcedureStepSequence(DISPLAYNAME = "Procedure");
 
 Storage Default
 {
@@ -29,16 +29,10 @@ Storage Default
 <Value>PatientID</Value>
 </Value>
 <Value name="5">
-<Value>PatientSize</Value>
-</Value>
-<Value name="6">
 <Value>StudyInstanceID</Value>
 </Value>
-<Value name="7">
+<Value name="6">
 <Value>ScheduledProcedureStepSequence</Value>
-</Value>
-<Value name="8">
-<Value>TimeStamp</Value>
 </Value>
 </Data>
 <State>PatientState</State>

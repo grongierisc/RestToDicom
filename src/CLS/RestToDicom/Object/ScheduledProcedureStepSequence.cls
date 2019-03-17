@@ -1,4 +1,4 @@
-Class RestToDicom.Object.ScheduledProcedureStepSequence Extends (%SerialObject, Form.Field) [ PropertyClass = Form.Field ]
+Class RestToDicom.Object.ScheduledProcedureStepSequence Extends (%SerialObject, %XML.Adaptor, Form.Field) [ PropertyClass = Form.Field ]
 {
 
 Property Modality As %String(DISPLAYNAME = "Modality");

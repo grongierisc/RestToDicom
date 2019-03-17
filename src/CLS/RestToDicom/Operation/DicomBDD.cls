@@ -11,7 +11,7 @@ Method SetDicomToBdd(pRequest As RestToDicom.Message.SetDicomToBddRequest, Outpu
 	
 	try{
 
-        Set out = ##class(RestToDicom.Table.Patient).%New()
+		Set out = ##class(RestToDicom.Table.Patient).%New()
 
         $$$ThrowOnError(##class(RestToDicom.Transformation.DicomDocumentToPatient).Transform(pRequest.Document,.out))
 

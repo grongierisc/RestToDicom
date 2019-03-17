@@ -16,7 +16,12 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 <assign value='source.DataSet.GetValueAt("PatientName",0)' property='target.PatientFullName' action='set' />
 <assign value='source.DataSet.GetValueAt("PatientID",0)' property='target.PatientID' action='set' />
 <assign value='source.DataSet.GetValueAt("RequestedProcedureID",0)' property='target.StudyInstanceID' action='set' />
-<subtransform class='RestToDicom.Transformation.ScheduledProcedureStepSequenceToRest' targetObj='target.ScheduledProcedureStepSequence.(1)' sourceObj='source' />
+<assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].Modality",0)' property='target.ScheduledProcedureStepSequence.Modality' action='set' />
+<assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].ScheduledStationAETitle",0)' property='target.ScheduledProcedureStepSequence.ScheduledStationAETitle' action='set' />
+<assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].ScheduledProcedureStepStartDate",0)' property='target.ScheduledProcedureStepSequence.ScheduledProcedureStepStartDate' action='set' />
+<assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].ScheduledProcedureStepStartTime",0)' property='target.ScheduledProcedureStepSequence.ScheduledProcedureStepStartTime' action='set' />
+<assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].ScheduledProcedureStepDescription",0)' property='target.ScheduledProcedureStepSequence.ScheduledProcedureStepDescription' action='set' />
+<assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].ScheduledProcedureStepID",0)' property='target.ScheduledProcedureStepSequence.ScheduledProcedureStepID' action='set' />
 </transform>
 }
 
