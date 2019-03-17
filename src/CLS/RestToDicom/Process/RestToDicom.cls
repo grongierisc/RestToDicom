@@ -20,7 +20,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </property>
 <property name='Patient' type='RestToDicom.Object.Patient' instantiate='0' />
 </context>
-<sequence xend='200' yend='700' >
+<sequence xend='200' yend='800' >
 <if name='FIND ?' condition='request.RequestType="FIND"' xpos='200' ypos='250' xend='200' yend='600' >
 <true>
 <call name='CallDicomProcessFind' target='PROC_DICOM' async='0' xpos='470' ypos='400' >
@@ -45,8 +45,13 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="response" value="callresponse" action="set" />
 </response>
 </call>
+<code name='Set EchoResponse' xpos='200' ypos='500' >
+<![CDATA[ set response = ##class(RestToDicom.Message.EchoResponse).%New()
+  set response.Status = "OK"]]>
+</code>
 </false>
 </if>
+<assign name="SessionId" property="response.SessionId" value="..%Process.%SessionId" action="set" xpos='200' ypos='700' />
 </sequence>
 </process>
 }

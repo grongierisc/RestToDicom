@@ -1,22 +1,19 @@
-Class RestToDicom.Message.PatientsResponse Extends Ens.Response
+Class RestToDicom.Message.EchoResponse Extends Ens.Response
 {
 
 Property SessionId As %Integer;
 
-Property Patients As list Of RestToDicom.Object.Patient;
+Property Status As %String;
 
 Storage Default
 {
 <Data name="PatientsResponseDefaultData">
 <Subscript>"PatientsResponse"</Subscript>
 <Value name="1">
-<Value>Documents</Value>
+<Value>SessionId</Value>
 </Value>
 <Value name="2">
-<Value>Patients</Value>
-</Value>
-<Value name="3">
-<Value>SessionId</Value>
+<Value>Status</Value>
 </Value>
 </Data>
 <DefaultData>PatientsResponseDefaultData</DefaultData>
