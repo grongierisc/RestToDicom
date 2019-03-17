@@ -8,7 +8,9 @@ Parameter CONTENTTYPE = "application/json";
 
 Parameter CHARSET = "UTF-8";
 
-Parameter UseSession As Integer = 1;
+Parameter UseSession As %Integer = 1;
+
+Parameter HandleCorsRequest As %Integer = 1;
 
 /// This method takes a status, renders it as json (if requested) and outputs the result
 ClassMethod outputStatus(pSC As %Status) As %Status [ Internal ]
