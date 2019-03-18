@@ -44,8 +44,8 @@ Method OnMessage(pSourceConfigName As %String, pInput As %Library.Persistent) As
             #; To improve 
             #; Gerer le type de demande.
             If ((pSourceConfigName="PROC_RESTTODICOM")&&(pInput.%Extends("RestToDicom.Message.DicomRequest"))){
-                if (pInput.RequestType = "FIND"){
-                    set ..RequestType = "FIND"
+                if (pInput.RequestType = "CFINDRQ"){
+                    set ..RequestType = "CFINDRQ"
                 }
                 else {
                     set ..RequestType = "ECHO"
@@ -128,7 +128,7 @@ Method OnAssociationEstablished(pSourceConfigName As %String, pInput As EnsLib.D
         #; Send the find request
         Do ..TraceMessage("sending request")
                 
-        If ..RequestType="FIND" {
+        If ..RequestType="CFINDRQ" {
             
             #; Create a Generic Find Request
             Set tSC=..CreateFindRequest(.tRequest)

@@ -7,7 +7,7 @@ Property DicomDocument As EnsLib.DICOM.Document;
 
 Method OnBeforeAllTests() As %Status
 {
-
+    //TODO Ne pas mettre en fixe
     Set filePath = "/Users/grongier/git/RestToDicom/src/CLS/Tests/Data/DicomTest.dcm"
 
     Set stream=##class(%FileBinaryStream).%New()

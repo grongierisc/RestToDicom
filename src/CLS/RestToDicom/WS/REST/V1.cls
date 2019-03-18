@@ -58,7 +58,7 @@ ClassMethod GetFullWorklist() As %Status
         $$$ThrowOnError(##class(Ens.Director).CreateBusinessService(..#BsName,.tService))
         
         set tRequest = ##class(RestToDicom.Message.DicomRequest).%New()
-        set tRequest.RequestType = "FIND"
+        set tRequest.RequestType = "CFINDRQ"
 
 		$$$ThrowOnError(tService.ProcessInput(tRequest,.output))	
     
@@ -80,6 +80,7 @@ ClassMethod GetEcho() As %Status
             $$$ThrowOnError(##class(Ens.Director).CreateBusinessService(..#BsName,.tService))
 
             set tRequest = ##class(RestToDicom.Message.DicomRequest).%New()
+            set tRequest.RequestType = "ECHO"
 
             $$$ThrowOnError(tService.ProcessInput(tRequest,.output))
 

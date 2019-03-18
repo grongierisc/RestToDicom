@@ -21,7 +21,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <property name='Patient' type='RestToDicom.Object.Patient' instantiate='0' />
 </context>
 <sequence xend='200' yend='800' >
-<if name='FIND ?' condition='request.RequestType="FIND"' xpos='200' ypos='250' xend='200' yend='600' >
+<if name='FIND ?' condition='request.RequestType="CFINDRQ"' xpos='200' ypos='250' xend='200' yend='600' >
 <true>
 <call name='CallDicomProcessFind' target='PROC_DICOM' async='0' xpos='470' ypos='400' >
 <request type='RestToDicom.Message.DicomRequest' >
