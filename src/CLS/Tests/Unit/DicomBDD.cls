@@ -31,8 +31,11 @@ Method TestSetDicomToBdd()
     Do $$$AssertStatusOK(..Operation.SetDicomToBdd(pRequest, .pResponse), $$$OK)
     
     zw pResponse.Patient
-	//Do $$$AssertEquals(pResponse.TarifSite,1710.00)
-    //Do $$$AssertEquals(pResponse.TarifCert,1910.00)
+	Do $$$AssertEquals(pResponse.Patient.PatientFirstName,"ALOHA")
+    Do $$$AssertEquals(pResponse.Patient.PatientFullName,"ALOHA^JANE^^^ ")
+    Do $$$AssertEquals(pResponse.Patient.PatientID,"122 ")
+    Do $$$AssertEquals(pResponse.Patient.PatientLastName,"JANE")
+    Do $$$AssertEquals(pResponse.Patient.SessionId,0)
 }
 
 }
