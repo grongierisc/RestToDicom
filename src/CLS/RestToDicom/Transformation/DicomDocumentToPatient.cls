@@ -1,3 +1,4 @@
+/// Transformation entre la réponse DICOM et l'Objet pivot Patient
 Class RestToDicom.Transformation.DicomDocumentToPatient Extends Ens.DataTransformDTL [ DependsOn = (EnsLib.DICOM.Document, RestToDicom.Object.Patient) ]
 {
 

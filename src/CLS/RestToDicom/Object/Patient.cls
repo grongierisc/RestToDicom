@@ -1,13 +1,15 @@
+/// Object principale du projet
+/// Classe mere de RestToDicom.Table.Patient 
 Class RestToDicom.Object.Patient Extends (%SerialObject, %XML.Adaptor, Form.Field) [ PropertyClass = Form.Field ]
 {
 
-Property PatientFullName As %String(DISPLAYNAME = "Name");
+Property PatientFullName As %String(DISPLAYNAME = "Name", MAXLEN = "");
 
-Property PatientFirstName As %String(DISPLAYNAME = "FirstName");
+Property PatientFirstName As %String(DISPLAYNAME = "FirstName", MAXLEN = "");
 
-Property PatientLastName As %String(DISPLAYNAME = "LastName");
+Property PatientLastName As %String(DISPLAYNAME = "LastName", MAXLEN = "");
 
-Property PatientID As %String(DISPLAYNAME = "ID");
+Property PatientID As %String(DISPLAYNAME = "ID", MAXLEN = "");
 
 Property StudyInstanceID As %String(DISPLAYNAME = "Study ID", MAXLEN = "");
 
@@ -33,6 +35,9 @@ Storage Default
 </Value>
 <Value name="6">
 <Value>ScheduledProcedureStepSequence</Value>
+</Value>
+<Value name="7">
+<Value>PatientSize</Value>
 </Value>
 </Data>
 <State>PatientState</State>

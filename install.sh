@@ -40,7 +40,7 @@ zn "%SYS"
 zw ##class(Security.Applications).Import("$DIR/misc/ApplicationsExport.xml")
 
 zn "$NameSpace"
-do \$system.OBJ.ImportDir("$DirSrc","*.*","cubk",.errors,1)
+do \$system.OBJ.ImportDir("$DirSrc","*.cls;*.inc","cubk",.errors,1)
 
 Do ##class(Ens.Director).StartProduction("RestToDicom.Production")
 

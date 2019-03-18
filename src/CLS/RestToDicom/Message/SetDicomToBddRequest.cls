@@ -5,7 +5,7 @@ Property SessionId As %Integer;
 
 Property Document As EnsLib.DICOM.Document(XMLPROJECTION = "NONE");
 
-Method %OnNew(pSessionId As %Integer, pDoc As EnsLib.DICOM.Document) As %Status [ Private, ServerOnly = 1 ]
+Method %OnNew(pSessionId As %Integer = 0, pDoc As EnsLib.DICOM.Document = "") As %Status [ Private, ServerOnly = 1 ]
 {
 
         Set ..SessionId = pSessionId

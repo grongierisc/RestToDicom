@@ -1,0 +1,38 @@
+Class Tests.Unit.DicomBDD Extends Tests.Fw.CUnitTestBase
+{
+
+Property Operation As RestToDicom.Operation.DicomBDD;
+
+Property DicomDocument As EnsLib.DICOM.Document;
+
+Method OnBeforeAllTests() As %Status
+{
+
+    Set filePath = "/Users/grongier/git/RestToDicom/src/CLS/Tests/Data/DicomTest.dcm"
+
+    Set stream=##class(%FileBinaryStream).%New()
+    Set stream.Filename=filePath
+
+    Do ##class(EnsLib.DICOM.Document).CreateFromDicomFileStream(stream,.tDicomDocument)
+
+    Set ..DicomDocument = tDicomDocument
+
+    Set ..Operation = ##class(RestToDicom.Operation.DicomBDD).%New("UnitTest")
+      
+  Quit $$$OK
+}
+
+/// Testing SetDicomToBdd
+Method TestSetDicomToBdd()
+{
+
+    Set pRequest = ##class(RestToDicom.Message.SetDicomToBddRequest).%New(0,..DicomDocument)
+
+    Do $$$AssertStatusOK(..Operation.SetDicomToBdd(pRequest, .pResponse), $$$OK)
+    
+    zw pResponse.Patient
+	//Do $$$AssertEquals(pResponse.TarifSite,1710.00)
+    //Do $$$AssertEquals(pResponse.TarifCert,1910.00)
+}
+
+}
