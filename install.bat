@@ -5,11 +5,6 @@
 set IRIS_DIR="C:\InterSystems\IRIS"
 set /p IRIS_DIR= "Please enter the path of the Intersystems IRIS directory [C:\InterSystems\IRIS] : "
 
-set USERNAME="_SYSTEM"
-set /p USERNAME= "Please enter your IRIS username [_SYSTEM] : "
-
-set /p PASSWORD= "Please enter your password : "
-
 :: Pre-configured variables
 set BUILD_DIR=install\App
 set NAMESPACE=USER
@@ -27,8 +22,7 @@ set CSP_FRONT=/worklist
 :: Build and import application to IRIS
 echo Importing project...
 (
-echo %USERNAME%
-echo %PASSWORD%
+
 
 echo zn "%NAMESPACE%" set st = $system.Status.GetErrorText($system.OBJ.ImportDir("%~dp0%BUILD_DIR%",,"ck",,1^^^)^^^) w "IMPORT STATUS: "_$case(st="",1:"OK",:st^^^), ! 
 echo set pVars("NAMESPACE"^^^) = "%NAMESPACE_TO_CREATE%"
