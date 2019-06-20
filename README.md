@@ -32,7 +32,7 @@ docker-compose up -d
 Back on IRIS 
 
 ```
-http://localhost:52775/csp/healthshare/resttodicom/EnsPortal.ProductionConfig.zen?$NAMESPACE=RESTTODICOM&$NAMESPACE=RESTTODICOM&
+http://localhost:52776/csp/healthshare/resttodicom/EnsPortal.ProductionConfig.zen?$NAMESPACE=RESTTODICOM&$NAMESPACE=RESTTODICOM&
 ```
 Swagger
 
@@ -42,7 +42,7 @@ http://localhost:8080/
 Angular Front
 
 ```
-http://localhost:52775/worklist/index.html
+http://localhost:52776/worklist/index.html
 ```
 
 ### Structure
