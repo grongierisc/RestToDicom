@@ -38,12 +38,6 @@ Method SendDocument(pDocument As EnsLib.DICOM.Document) As %Status
                     set tContextId=0
                 }
 
-                #; C-CANCEL-RQ has no AffectedSOPClassUID
-                //Set tSC=pDocument.SetValueAt(tAffectedSOPClassUID,"CommandSet.(0000,0002)","clear")
-                If $$$ISERR(tSC) Quit
-                Set tSC=pDocument.SetValueAt(tAffectedSOPClassUID,"CommandSet.(0000,0003)","clear")
-                If $$$ISERR(tSC) Quit
-
             } else {
             
                 #; Get the AbstractSyntax from the command set (this is the AffectedSOPClassUID)
