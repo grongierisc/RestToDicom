@@ -1,6 +1,9 @@
 Class RestToDicom.Operation.DicomTCP Extends EnsLib.DICOM.Operation.TCP
 {
 
+Parameter ADAPTER = "RestToDicom.Adapter.DicomTCP";
+
+/// This holds the name of the adapter
 Method OnInit() As %Status
 {
     Do ##super()

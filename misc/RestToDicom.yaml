@@ -5,7 +5,7 @@ info:
   title: Api RestToDicom V1 
   contact:
     email: guillaume.rongier@intersystems.com
-host: 'localhost:52774'
+host: 'localhost:52776'
 basePath: /api/resttodicom/v1
 schemes:
   - http

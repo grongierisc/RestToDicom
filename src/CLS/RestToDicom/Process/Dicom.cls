@@ -26,7 +26,7 @@ Property Response As Ens.Response;
 Property RequestType As %String [ InitialExpression = "FIND" ];
 
 /// This specifies the number of C-FIND-RSP records to be recieved before sending a CANCEL
-Property CancelThreshold As %Integer [ InitialExpression = 12 ];
+Property CancelThreshold As %Integer [ InitialExpression = 4 ];
 
 /// Messages received here are instances of EnsLib.DICOM.Document sent to this
 /// process by the service or operation config items. In this demo, the process is ever
@@ -72,7 +72,7 @@ Method OnMessage(pSourceConfigName As %String, pInput As %Library.Persistent) As
             
             #; Should only EVER get an C-FIND-RSP
             $$$ASSERT((tMsgType="C-FIND-RSP")||(tMsgType="C-ECHO-RSP"))
-            
+
             Do ..TraceMessage("received response")
 
             if (tMsgType="C-ECHO-RSP"){
@@ -197,7 +197,7 @@ Method OnAssociationErrored(pSourceConfigName As %String, pInput As EnsLib.DICOM
 Method OnAssociationAborted(pSourceConfigName As %String, pInput As EnsLib.DICOM.Notify.Aborted) As %Status
 {
     Do ..TraceMessage("peer aborted association")
-    
+    Set tSC = ..Reply(..Response)
     Set ..CurrentState="OperationNotConnected"
     Quit $$$OK
 }
@@ -233,6 +233,10 @@ Method CreateCancelRequest(Output pDocOut As EnsLib.DICOM.Document) As %Status
         #; Now create an instance of a message to indicate that the find process is complete
         Kill %objlasterror Set pDocOut=##class(EnsLib.DICOM.Document).%New(tStorageLocation)
         If '$IsObject(pDocOut) Set tSC=$Get(%objlasterror,$$$ERROR($$$FailedToNewClass,"EnsLib.DICOM.Document")) Quit
+
+        #; We will be performing a cancel on find context
+        Set tSC=pDocOut.SetValueAt("1.2.840.10008.5.1.4.1.2.1.1","CommandSet.AffectedSOPClassUID")
+        If $$$ISERR(tSC) Quit
         
         #; Set the CommandField, this is a C-CANCEL Request
         Set tSC=pDocOut.SetValueAt($$$Str2MsgTyp("C-CANCEL-RQ"),"CommandSet.CommandField")
@@ -245,7 +249,7 @@ Method CreateCancelRequest(Output pDocOut As EnsLib.DICOM.Document) As %Status
         #; And plug it into the cancel request
         Set tSC=pDocOut.SetValueAt(tMsgId,"CommandSet.MessageIDBeingRespondedTo") If $$$ISERR(tSC) Quit
         If $$$ISERR(tSC) Quit
-        
+
     } catch {
         Set tSC=$$$EnsSystemError
     }
@@ -308,6 +312,7 @@ Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
             try {
                 
                 Set tLast=pInput.GetValueAt("CommandSet.Status",,.tSC)
+                Set:(..CurrentState="Canceled") tLast = 0 
                 If $$$ISERR(tSC) Quit
 
                 If ..Response="" {
@@ -334,6 +339,8 @@ Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
                         
                         #; No response required    
                         Set tSC=..SendRequestAsync(..OperationDuplexName,tCancelRequest,0)
+
+                        Set ..CurrentState="Canceled"
                     }
         
                     Do ..TraceMessage("more find responses to come")  
