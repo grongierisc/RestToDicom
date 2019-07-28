@@ -1,4 +1,4 @@
-FROM docker.iscinternal.com/intersystems/irishealth:2019.1.0-latest
+FROM docker.iscinternal.com/intersystems/irishealth:2019.2.0S-latest
 LABEL maintainer="Guillaume Rongier <guillaume.rongier@intersystems.com>"
 
 COPY . /src

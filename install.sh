@@ -42,7 +42,7 @@ zw ##class(Security.Applications).Import("$DIR/misc/ApplicationsExport.xml")
 zn "$NameSpace"
 do \$system.OBJ.ImportDir("$DirSrc","*.cls;*.inc","cubk",.errors,1)
 
-Do ##class(Ens.Director).StartProduction("RestToDicom.Production")
+do \$classmethod("Ens.Director", "SetAutoStart", "RestToDicom.Production", 0)
 
 halt
 EOF
