@@ -335,12 +335,13 @@ Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
                     If ..ResponseCount=..CancelThreshold {
                         
                         Set tSC=..CreateCancelRequest(.tCancelRequest)
+                    
                         If $$$ISERR(tSC) Quit
                         
                         #; No response required    
                         Set tSC=..SendRequestAsync(..OperationDuplexName,tCancelRequest,0)
 
-                        Set ..CurrentState="Canceled"
+                        //Set ..CurrentState="Canceled"
                     }
         
                     Do ..TraceMessage("more find responses to come")  

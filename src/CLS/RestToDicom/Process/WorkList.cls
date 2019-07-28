@@ -39,7 +39,7 @@ Method OnMessage(pSourceConfigName As %String, pInput As %Library.Persistent) As
 			#; Get the CommandField, it contains the type of request and should ALWAYS be present
 			Set tMsgType=$$$MsgTyp2Str(pInput.GetValueAt("CommandSet.CommandField",,.tSC))
 			If $$$ISERR(tSC) Quit
-
+			$$$LOGINFO(tMsgType)
 			If tMsgType="C-FIND-RQ" {
 			
 				#; The incoming document is the source document
@@ -57,6 +57,7 @@ Method OnMessage(pSourceConfigName As %String, pInput As %Library.Persistent) As
 			} elseif tMsgType="C-CANCEL-RQ" {
 				
 				#; We received a cancel, record that fact
+				
 				Set ..ReplyCounter=0
 				
 			} elseif tMsgType="N-CREATE-RQ" {
