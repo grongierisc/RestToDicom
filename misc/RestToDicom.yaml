@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
   description: Api RestToDicom.
-  version: 1.0.0
-  title: Api RestToDicom V1 
+  version: 2.0.0
+  title: Api RestToDicom V2
   contact:
     email: guillaume.rongier@intersystems.com
 host: 'localhost:52776'

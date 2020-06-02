@@ -6,7 +6,7 @@ die () {
     exit 1
 }
 
-[ "$#" -eq 2 ] || die "Usage install.sh [instanceName] [password]"
+[ "$#" -eq 3 ] || die "Usage install.sh [instanceName] [password] [namespace]"
 
 DIR=$(dirname $0)
 if [ "$DIR" = "." ]; then
@@ -25,7 +25,7 @@ DirFront=$DIR/front
 DirSrc=$DIR/src
 
 irissession $instanceName -U USER <<EOF 
-SuperUser
+sys
 $password
 do \$system.OBJ.ImportDir("$ClassImportDir","*.cls","cubk",.errors,1)
 write "Complation de l'installer done"

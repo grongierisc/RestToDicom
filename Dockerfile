@@ -1,14 +1,21 @@
-FROM docker.iscinternal.com/intersystems/irishealth:2019.2.0S-latest
+FROM store/intersystems/irishealth-community:2020.2.0.204.0
 LABEL maintainer="Guillaume Rongier <guillaume.rongier@intersystems.com>"
 
-COPY . /src
+COPY . /tmp/src
+WORKDIR /tmp/src
 
-WORKDIR /src
+RUN iris start $ISC_PACKAGE_INSTANCENAME quietly EmergencyId=sys,sys && \
+    sh install.sh $ISC_PACKAGE_INSTANCENAME sys RESTTODICOM && \
+    /bin/echo -e "sys\nsys\n" | iris stop $ISC_PACKAGE_INSTANCENAME quietly
 
-COPY misc/iris.key /usr/irissys/mgr/iris.key
+WORKDIR /home/irisowner/
 
-RUN /usr/irissys/dev/Cloud/ICM/changePassword.sh /src/misc/password.txt
+# Cleanup
+USER root
+RUN rm -f $ISC_PACKAGE_INSTALLDIR/mgr/messages.log && \
+    rm -f $ISC_PACKAGE_INSTALLDIR/mgr/alerts.log && \
+    rm -f $ISC_PACKAGE_INSTALLDIR/mgr/IRIS.WIJ && \
+    rm -f $ISC_PACKAGE_INSTALLDIR/mgr/journal/* && \
+    rm -fR /tmp/src
 
-RUN iris start IRIS && sh install.sh IRIS password
-
-RUN rm /usr/irissys/mgr/iris.key
+USER irisowner
