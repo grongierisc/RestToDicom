@@ -5,25 +5,17 @@ Proof of Concept Rest call to retrive an DICOM Worklist
 
 Can be used on Intersystems IRIS.
 
-For docker, add your licence key in "misc/iris.key"
-
 ### Installing
 
 Clone this repository
 
-```
+```sh
 git clone https://github.com/grongierisc/RestToDicom.git
-```
-
-Use script installer
-
-```
-sh install.sh <IRIS Instance> <IRIS SuperUser Password>
 ```
 
 Docker
 
-```
+```sh
 docker-compose up -d
 ```
 
