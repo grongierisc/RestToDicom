@@ -1,6 +1,8 @@
-Class RestToDicom.Table.Patient Extends (%Persistent, RestToDicom.Object.Patient, Form.Adaptor) [ DdlAllowed ]
+Class RestToDicom.Table.Patient Extends (%Persistent, RestToDicom.Object.Patient, Form.Adaptor, %JSON.Adaptor) [ DdlAllowed ]
 {
+
 Parameter XMLTYPE = "PatientTable";
+
 /// Form name, not a global key so it can be anything
 /// Set to empty string (like here) to not have a class as a form 
 Parameter FORMNAME = "Patient";
@@ -19,9 +21,9 @@ Parameter DISPLAYPROPERTY As %String = "PatientFullName";
 /// Use value of this parameter in SQL, as ORDER BY clause value 
 Parameter FORMORDERBY As %String = "TimeStamp";
 
-Property ScheduledProcedureStepSequence As RestToDicom.Table.ScheduledProcedureStepSequence(DISPLAYNAME = "Procedure");
+Property ScheduledProcedureStepSequence As RestToDicom.Table.ScheduledProcedureStepSequence;
 
-Property SessionId As %Integer;
+Property SessionId As %Integer(DISPLAYNAME = "SessionId");
 
 Property TimeStamp As %TimeStamp(DISPLAYNAME = "Timestamp") [ InitialExpression = {$ZDATETIME($ZTIMESTAMP, 3, 1, 3)} ];
 

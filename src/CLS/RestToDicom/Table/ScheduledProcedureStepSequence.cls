@@ -1,4 +1,4 @@
-Class RestToDicom.Table.ScheduledProcedureStepSequence Extends (%Persistent, RestToDicom.Object.ScheduledProcedureStepSequence)
+Class RestToDicom.Table.ScheduledProcedureStepSequence Extends (%Persistent, %JSON.Adaptor, RestToDicom.Object.ScheduledProcedureStepSequence)
 {
 
 Parameter XMLTYPE = "ScheduledProcedureStepSequenceTable";

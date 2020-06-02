@@ -4,6 +4,29 @@ Class RestToDicom.Operation.DicomBDD Extends Ens.BusinessOperation
 
 Parameter INVOCATION = "Queue";
 
+Method OnTask() As %Status [ Internal ]
+{
+		try {
+			If '..%WarnedLatest&&'..%ClassIsLatestVersion() {
+				$$$ThrowOnError(##class(Ens.Director).EnableConfigItem(..%ConfigName,0,0))
+				$$$ThrowOnError(##class(Ens.Director).EnableConfigItem(..%ConfigName,1,0))
+			}
+			If $IsObject(..Adapter)&&'..Adapter.%WarnedLatest&&'..Adapter.%ClassIsLatestVersion() {
+				$$$ThrowOnError(##class(Ens.Director).EnableConfigItem(..%ConfigName,0,0))
+				$$$ThrowOnError(##class(Ens.Director).EnableConfigItem(..%ConfigName,1,0))
+			}
+			$$$ThrowOnError(##super())
+		}
+		catch exp
+		{
+			Set tStatus = exp.AsStatus()
+			
+		}
+
+		
+		Quit $$$OK
+}
+
 // Methode de persitence des Objects Dicom vers la table RestToDicom.Table.Patient
 
 Method SetDicomToBdd(pRequest As RestToDicom.Message.SetDicomToBddRequest, Output pResponse As RestToDicom.Message.SetDicomToBddResponse) As %Status
@@ -16,7 +39,10 @@ Method SetDicomToBdd(pRequest As RestToDicom.Message.SetDicomToBddRequest, Outpu
 
 		Set out = ##class(RestToDicom.Table.Patient).%New()
 
+		$$$LOGINFO("titi")
+
         $$$ThrowOnError(##class(RestToDicom.Transformation.DicomDocumentToPatient).Transform(pRequest.Document,.out))
+
 
 		Set out.SessionId = pRequest.SessionId
 		

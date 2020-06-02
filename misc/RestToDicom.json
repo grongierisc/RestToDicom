@@ -1,0 +1,786 @@
+{
+   "swagger": "2.0",
+   "info": {
+      "description": "Api RestToDicom.",
+      "version": "1.0.0",
+      "title": "Api RestToDicom V1",
+      "contact": {
+         "email": "guillaume.rongier@intersystems.com"
+      }
+   },
+   "host": "localhost:52776",
+   "basePath": "/api/resttodicom/v1",
+   "schemes": [
+      "http"
+   ],
+   "securityDefinitions": {
+      "basicAuth": {
+         "type": "basic",
+         "description": "HTTP Basic Authentication. Works over HTTP and HTTPS"
+      }
+   },
+   "paths": {
+      "/worklist": {
+         "get": {
+            "summary": "Récupération de la worklist du RIS",
+            "description": "Récupération de la worklist du RIS\n",
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API RIS"
+            ],
+            "responses": {
+               "200": {
+                  "description": "Liste des notes",
+                  "schema": {
+                     "$ref": "#/definitions/Patients"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/echo": {
+         "get": {
+            "summary": "Echo DICOM vers le RIS",
+            "description": "Echo DICOM vers le RIS\n",
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API RIS"
+            ],
+            "responses": {
+               "200": {
+                  "description": "Echo dicom",
+                  "schema": {
+                     "$ref": "#/definitions/Status"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/test": {
+         "get": {
+            "summary": "Ping l'API à la base de données",
+            "description": "Echo DICOM vers le RIS\n",
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "Ping",
+                  "schema": {
+                     "$ref": "#/definitions/Status"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/info": {
+         "get": {
+            "summary": "Information sur les langues disponibles",
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "Ping",
+                  "schema": {
+                     "$ref": "#/definitions/Langues"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/form/info": {
+         "get": {
+            "summary": "Liste des objets disponiblent dans l'API",
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "Liste objets",
+                  "schema": {
+                     "type": "array",
+                     "description": "Liste des objets",
+                     "items": {
+                        "$ref": "#/definitions/Object"
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/form/info/all": {
+         "get": {
+            "summary": "Toutes les informations des classes",
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "Liste classe information",
+                  "schema": {
+                     "type": "array",
+                     "description": "Liste des objets",
+                     "items": {
+                        "$ref": "#/definitions/ClassInfo"
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/form/info/{class}": {
+         "get": {
+            "summary": "Toutes les informations d'une classe",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "Classe information",
+                  "schema": {
+                     "$ref": "#/definitions/ClassInfo"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/form/object/{class}": {
+         "post": {
+            "summary": "Insert un object",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "ObjectValue",
+                  "schema": {
+                     "$ref": "#/definitions/ObjectValue"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         },
+         "put": {
+            "summary": "Modification d'un object",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "ObjectValue",
+                  "schema": {
+                     "$ref": "#/definitions/ObjectValue"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/form/object/{class}/{id}": {
+         "get": {
+            "summary": "Récupérer les données d'un object",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "name": "id",
+                  "in": "path",
+                  "description": "Id de la class",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "ObjectValue",
+                  "schema": {
+                     "$ref": "#/definitions/ObjectValue"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         },
+         "put": {
+            "summary": "Modification d'un object",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "name": "id",
+                  "in": "path",
+                  "description": "Id de la class",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "ObjectValue",
+                  "schema": {
+                     "$ref": "#/definitions/ObjectValue"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         },
+         "delete": {
+            "summary": "Suppression d'un object",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "name": "id",
+                  "in": "path",
+                  "description": "Id de la class",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "ObjectValue",
+                  "schema": {
+                     "$ref": "#/definitions/ObjectValue"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/form/object/{class}/{id}/{property}": {
+         "get": {
+            "summary": "Valeur d'une propriété de l'objet",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "name": "id",
+                  "in": "path",
+                  "description": "Id de la class",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "name": "property",
+                  "in": "path",
+                  "description": "Id de la class",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "ObjectValue",
+                  "schema": {
+                     "$ref": "#/definitions/PropertyValue"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      },
+      "/patients/form/objects/{class}/{query}": {
+         "get": {
+            "summary": "Requete sur une classe",
+            "description": "<table> <thead> <tr> <th>Query</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td>all</td> <td>all information</td> </tr> <tr> <td>info</td> <td>displayName and id</td> </tr> <tr> <td>infoclass</td> <td>displayName, id, class</td> </tr> <tr> <td>count</td> <td>number of rows</td> </tr> </tbody> </table> <table> <thead> <tr> <th>Argument</th> <th>Sample Value</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td>size</td> <td>2</td> <td>page size</td> </tr> <tr> <td>page</td> <td>1</td> <td>page number</td> </tr> <tr> <td>filter</td> <td>Value+contains+W</td> <td>WHERE clause</td> </tr> <tr> <td>orderby</td> <td>Value+desc</td> <td>ORDER BY clause</td> </tr> <tr> <td>collation</td> <td>UPPER</td> <td>COLLATION clause</td> </tr> <tr> <td>nocount</td> <td>1</td> <td>Remove count of rows (speeds up query)</td> </tr> <tr> <td>mode</td> <td>0</td> <td>SQL mode value. Can be 0 - Logical, 1 - ODBC, 2 - Display. Defaults to 0.</td> </tr> </tbody> </table> <h3>filter argument</h3> <table> <thead> <tr> <th>URL</th> <th>SQL</th> </tr> </thead> <tbody> <tr> <td>neq</td> <td>!=</td> </tr> <tr> <td>eq</td> <td>=</td> </tr> <tr> <td>gte</td> <td>&gt;=</td> </tr> <tr> <td>gt</td> <td>&gt;</td> </tr> <tr> <td>lte</td> <td>&lt;=</td> </tr> <tr> <td>lt</td> <td>&lt;</td> </tr> <tr> <td>startswith</td> <td>%STARTSWITH</td> </tr> <tr> <td>contains</td> <td>[</td> </tr> <tr> <td>doesnotcontain</td> <td>'[</td> </tr> <tr> <td>in</td> <td>IN</td> </tr> <tr> <td>like</td> <td>LIKE</td> </tr> </tbody> </table>\n<h3>Examples:</h3>\n<p>info?size=500&page=1&orderby=text</p>\n<p>all?orderby=text+desc</p>\n<p>all?filter=SessionId%20eq%2</p>\n<p>all?filter=text%20in%20A9044~B5920</p>",
+            "parameters": [
+               {
+                  "name": "class",
+                  "in": "path",
+                  "description": "Class",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "name": "query",
+                  "in": "path",
+                  "description": "See Above",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "name": "size",
+                  "in": "query",
+                  "description": "See Above",
+                  "type": "integer"
+               },
+               {
+                  "name": "page",
+                  "in": "query",
+                  "description": "See Above",
+                  "type": "integer"
+               },
+               {
+                  "name": "filter",
+                  "in": "query",
+                  "description": "See Above",
+                  "type": "string"
+               }
+            ],
+            "security": [
+               {
+                  "basicAuth": []
+               }
+            ],
+            "tags": [
+               "API BDD"
+            ],
+            "responses": {
+               "200": {
+                  "description": "ObjectValue",
+                  "schema": {
+                     "$ref": "#/definitions/PropertyValue"
+                  }
+               },
+               "500": {
+                  "description": "Unexpected error",
+                  "schema": {
+                     "$ref": "#/definitions/error"
+                  }
+               }
+            }
+         }
+      }
+   },
+   "definitions": {
+      "PropertyValue": {
+         "type": "object"
+      },
+      "ObjectValue": {
+         "type": "object",
+         "properties": {
+            "_id": {
+               "type": "string",
+               "example": "Patient",
+               "description": "Nom de l'objet"
+            },
+            "_class": {
+               "type": "string",
+               "example": "RestToDicom.Table.Patient",
+               "description": "Nom de la classe"
+            },
+            "ObjectValue": {
+               "type": "object"
+            }
+         }
+      },
+      "ClassInfo": {
+         "type": "object",
+         "properties": {
+            "name": {
+               "type": "string",
+               "example": "Patient",
+               "description": "Nom de l'objet"
+            },
+            "class": {
+               "type": "string",
+               "example": "RestToDicom.Table.Patient",
+               "description": "Nom de la classe"
+            },
+            "displayProperty": {
+               "type": "string",
+               "example": "patient",
+               "description": "Nom de la classe à afficher"
+            },
+            "objpermissions": {
+               "type": "string",
+               "example": "CRUD",
+               "description": "Droits sur la classe"
+            },
+            "fields": {
+               "type": "array",
+               "description": "Champs disponibles dans la classe",
+               "items": {
+                  "$ref": "#/definitions/Field"
+               }
+            }
+         }
+      },
+      "Field": {
+         "type": "object",
+         "properties": {
+            "name": {
+               "type": "string",
+               "example": "Patient",
+               "description": "Nom de l'objet"
+            },
+            "type": {
+               "type": "string",
+               "example": "%Library.String",
+               "description": "Type de l'objet"
+            },
+            "collection": {
+               "type": "string",
+               "example": "array",
+               "description": "Si liste, type de liste"
+            },
+            "displayName": {
+               "type": "string",
+               "example": "Patient en Anglais",
+               "description": "Nom d'affichage du champ'"
+            },
+            "required": {
+               "type": "integer",
+               "example": 0,
+               "description": "Champ obligatoire"
+            },
+            "category": {
+               "type": "string",
+               "example": "datatype",
+               "description": "Type de l'objet"
+            }
+         }
+      },
+      "Object": {
+         "type": "object",
+         "properties": {
+            "name": {
+               "type": "string",
+               "example": "Patient",
+               "description": "Nom de l'objet"
+            },
+            "class": {
+               "type": "string",
+               "example": "RestToDicom.Table.Patient",
+               "description": "Nom de la classe"
+            }
+         }
+      },
+      "Langues": {
+         "type": "object",
+         "properties": {
+            "langues": {
+               "type": "array",
+               "description": "Langues disponibles.",
+               "items": {
+                  "type": "string",
+                  "example": "en"
+               }
+            }
+         }
+      },
+      "Status": {
+         "type": "object",
+         "properties": {
+            "SessionId": {
+               "type": "integer",
+               "example": 12,
+               "description": "Id unique de la session"
+            },
+            "Status": {
+               "type": "string",
+               "example": "OK",
+               "description": "Réponse aux écho et ping"
+            }
+         }
+      },
+      "Patients": {
+         "type": "object",
+         "properties": {
+            "SessionId": {
+               "type": "integer"
+            },
+            "Patients": {
+               "type": "array",
+               "description": "Liste des patients du RIS.",
+               "items": {
+                  "$ref": "#/definitions/Patient"
+               }
+            }
+         }
+      },
+      "Patient": {
+         "type": "object",
+         "properties": {
+            "PatientFullName": {
+               "type": "string",
+               "example": "Michel Bilel",
+               "description": "Nom complet du patient"
+            },
+            "PatientFirstName": {
+               "type": "string",
+               "example": "Michel",
+               "description": "Prenom du patient"
+            },
+            "PatientLastName": {
+               "type": "string",
+               "example": "Bilel",
+               "description": "Nom du patient"
+            },
+            "PatientID": {
+               "type": "number",
+               "example": 5,
+               "description": "Id ud patient"
+            },
+            "PatientSize": {
+               "type": "number",
+               "example": 1,
+               "description": "Taille du patient"
+            },
+            "StudyInstanceID": {
+               "type": "number",
+               "example": 1,
+               "description": "Numero de d'étude du patient"
+            },
+            "ScheduledProcedureStepSequences": {
+               "type": "array",
+               "description": "Liste des séquences.",
+               "items": {
+                  "$ref": "#/definitions/ScheduledProcedureStepSequence"
+               }
+            }
+         }
+      },
+      "ScheduledProcedureStepSequence": {
+         "type": "object",
+         "properties": {
+            "Modality": {
+               "type": "string",
+               "description": "Modality"
+            },
+            "ScheduledStationAETitle": {
+               "type": "string",
+               "description": "ScheduledStationAETitle"
+            },
+            "ScheduledProcedureStepStartDate": {
+               "type": "string",
+               "description": "ScheduledProcedureStepStartTime"
+            },
+            "ScheduledProcedureStepStartTime": {
+               "type": "string",
+               "format": "date-time",
+               "description": "ScheduledProcedureStepStartTime"
+            },
+            "ScheduledProcedureStepDescription": {
+               "type": "string",
+               "description": "ScheduledProcedureStepDescription"
+            },
+            "ScheduledProcedureStepID": {
+               "type": "string",
+               "description": "ScheduledProcedureStepID"
+            }
+         }
+      },
+      "error": {
+         "type": "object",
+         "properties": {
+            "sourceConfigName": {
+               "type": "string",
+               "description": "Origine de l'erreur dans le processus."
+            },
+            "alertTexte": {
+               "type": "string",
+               "description": "Texte de l'erreur."
+            },
+            "alertDestination": {
+               "type": "string",
+               "description": "Défini si l'alerte est de type technique ou fonctionnelle."
+            },
+            "alertTime": {
+               "type": "string",
+               "format": "date-time",
+               "description": "TimeStamp de l'erreur. Format \"YYYY-MM-JJ HH:MM:SS.SSS\""
+            },
+            "sessionId": {
+               "type": "integer",
+               "description": "L'identifiant de session de l'erreur dans Ensemble."
+            }
+         }
+      }
+   }
+}
