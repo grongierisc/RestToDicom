@@ -44,9 +44,33 @@ Parameter HandleCorsRequest As %Integer = 1;
 XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
+<Route Url="/worklist/:id" Method="GET" Cors="true" Call="GetWorklist"/>
 <Route Url="/worklist" Method="GET" Cors="true" Call="GetFullWorklist"/>
 <Route Url="/echo" Method="GET" Cors="true" Call="GetEcho"/>
 </Routes>
+}
+
+ClassMethod GetWorklist(id As %String) As %Status
+{
+	set status = $$$OK
+	try {
+
+		
+        $$$ThrowOnError(##class(Ens.Director).CreateBusinessService(..#BsName,.tService))
+        
+        set tRequest = ##class(RestToDicom.Message.DicomRequest).%New()
+        set tRequest.RequestType = "CFINDRQ"
+        set tRequest.PatientID = id
+
+		$$$ThrowOnError(tService.ProcessInput(tRequest,.output))	
+    
+        $$$ThrowOnError(##CLASS(%ZEN.Auxiliary.jsonProvider).%ObjectToJSON(output,,,"iuweloa"))
+				
+
+	} catch(ex) {
+		set status = ex.AsStatus()
+	}
+	return status
 }
 
 ClassMethod GetFullWorklist() As %Status

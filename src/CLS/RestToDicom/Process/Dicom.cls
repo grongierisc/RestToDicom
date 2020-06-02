@@ -25,6 +25,8 @@ Property Response As Ens.Response;
 /// Request Type (this can be "FIND" or "ECHO")
 Property RequestType As %String [ InitialExpression = "FIND" ];
 
+Property PatientID As %String;
+
 /// This specifies the number of C-FIND-RSP records to be recieved before sending a CANCEL
 Property CancelThreshold As %Integer [ InitialExpression = 4 ];
 
@@ -46,6 +48,7 @@ Method OnMessage(pSourceConfigName As %String, pInput As %Library.Persistent) As
             If ((pSourceConfigName="PROC_RESTTODICOM")&&(pInput.%Extends("RestToDicom.Message.DicomRequest"))){
                 if (pInput.RequestType = "CFINDRQ"){
                     set ..RequestType = "CFINDRQ"
+                    set ..PatientID = pInput.PatientID
                 }
                 else {
                     set ..RequestType = "ECHO"
@@ -130,8 +133,16 @@ Method OnAssociationEstablished(pSourceConfigName As %String, pInput As EnsLib.D
                 
         If ..RequestType="CFINDRQ" {
             
-            #; Create a Generic Find Request
-            Set tSC=..CreateFindRequest(.tRequest)
+            If ..PatientID="" {
+                #; Create a Generic Find Request
+                Set tSC=..CreateFindRequest(.tRequest,"")
+            }
+            Else {
+                #; Create a Generic Find Request
+                Set tSC=..CreateFindRequest(.tRequest,..PatientID)
+            }
+            
+            
         } else {
             
             #; Create an Echo Request
@@ -360,7 +371,7 @@ Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
 }
 
 /// Create a Find Request
-Method CreateFindRequest(Output pDocOut As EnsLib.DICOM.Document) As %Status
+Method CreateFindRequest(Output pDocOut As EnsLib.DICOM.Document, pPatientID As %String) As %Status
 {
         #dim tSC As %Status =$$$OK
         #dim tTemp As %String
@@ -390,7 +401,7 @@ Method CreateFindRequest(Output pDocOut As EnsLib.DICOM.Document) As %Status
             Set tSC = pDocOut.SetValueAt("STUDY","DataSet.QueryRetrieveLevel")
             If $$$ISERR(tSC) Quit
         
-            Set tSC = pDocOut.SetValueAt("","DataSet.PatientID")
+            Set tSC = pDocOut.SetValueAt(pPatientID,"DataSet.PatientID")
             If $$$ISERR(tSC) Quit
                 
             Set tSC = pDocOut.SetValueAt("","DataSet.SOPInstanceUID")
@@ -438,6 +449,9 @@ Storage Default
 </Value>
 <Value name="9">
 <Value>OperationBDD</Value>
+</Value>
+<Value name="10">
+<Value>PatientID</Value>
 </Value>
 </Data>
 <DefaultData>ModalityDefaultData</DefaultData>

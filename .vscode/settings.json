@@ -1,10 +1,10 @@
 {
     "objectscript.conn.version": 3,
     "objectscript.conn.password": "password",
-    "objectscript.conn.port": 52774,
+    "objectscript.conn.port": 52776,
     "objectscript.conn.active": true,
     "objectscript.autoCompile": true,
-    "objectscript.conn.ns": "RESTTODICOM",
     "objectscript.conn.username": "SuperUser",
-    "objectscript.compileFlags": "cbuk"
+    "objectscript.compileFlags": "cbuk",
+    "objectscript.conn.ns": "RESTTODICOM"
 }

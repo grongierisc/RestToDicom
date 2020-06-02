@@ -33,7 +33,30 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/error'
-            
+  '/worklist/{id}':
+    get:
+      summary: Récupération de la worklist du RIS
+      parameters: 
+        - name: "id"
+          in: "path"
+          description: "Class"
+          required: true
+          type: "string"
+      description: |
+        Récupération de la worklist du RIS
+      security:
+      - basicAuth: []
+      tags:
+        - API RIS
+      responses:
+        '200':
+          description: Liste des notes
+          schema:
+            $ref: '#/definitions/Patients'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/error'
   '/echo':
     get:
       summary: Echo DICOM vers le RIS
