@@ -1,10 +1,11 @@
 {
-    "objectscript.conn.version": 3,
-    "objectscript.conn.password": "password",
-    "objectscript.conn.port": 52776,
-    "objectscript.conn.active": true,
-    "objectscript.autoCompile": true,
-    "objectscript.conn.username": "SuperUser",
-    "objectscript.compileFlags": "cbuk",
-    "objectscript.conn.ns": "RESTTODICOM"
+    "objectscript.conn": {
+        "active": false,
+        "username": "SuperUser",
+        "ns": "RESTTODICOM",
+        "docker-compose": {
+            "service": "resttodicom",
+            "internalPort": 52773
+        }
+    }
 }
