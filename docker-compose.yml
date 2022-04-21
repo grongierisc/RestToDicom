@@ -16,10 +16,11 @@ services:
     build:
       context: .
     image: resttodicom:latest
-    command: --key /irislicense/iris.key
+    #command: --key /irislicense/iris.key
+    command: --check-caps false
     hostname: resttodicom
     ports:
-    - "51776:51773" # 51773 is the superserver default port
+    - "50776:51773" # 51773 is the superserver default port
     - "52776:52773" # 52773 is the webserver/management portal port
     volumes:
     - type: bind
