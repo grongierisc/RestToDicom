@@ -2,3 +2,4 @@
 misc/iris.key
 misc/password.txt
 .vscode/settings.json
+__pycache__

@@ -45,5 +45,9 @@ do \$system.OBJ.ImportDir("$DirSrc","*.cls;*.inc","cubk",.errors,1)
 
 do \$classmethod("Ens.Director", "SetAutoStart", "RestToDicom.Production", 0)
 
+zpm "install pex-embbeded-python"
+
+zw ##class(Grongier.PEX.Utils).RegisterComponent("bo","RestToDicomBO","/irisdev/app/src/RestToDicom/",1,"Python.DicomBDD")
+
 halt
 EOF

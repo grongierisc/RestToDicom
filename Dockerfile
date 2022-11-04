@@ -1,8 +1,8 @@
 FROM intersystemsdc/irishealth-community:latest
 LABEL maintainer="Guillaume Rongier <guillaume.rongier@intersystems.com>"
 
-COPY . /tmp/src
-WORKDIR /tmp/src
+COPY . /irisdev/app
+WORKDIR /irisdev/app
 
 RUN iris start $ISC_PACKAGE_INSTANCENAME quietly EmergencyId=sys,sys && \
     sh install.sh $ISC_PACKAGE_INSTANCENAME sys RESTTODICOM && \
