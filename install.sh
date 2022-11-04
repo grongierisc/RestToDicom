@@ -38,6 +38,7 @@ Do ##class(App.Installer).setup(.pVars)
 zn "%SYS"
 
 zw ##class(Security.Applications).Import("$DIR/misc/ApplicationsExport.xml")
+Do ##class(Security.Users).UnExpireUserPasswords("*")
 
 zn "$NameSpace"
 do \$system.OBJ.ImportDir("$DirSrc","*.cls;*.inc","cubk",.errors,1)
