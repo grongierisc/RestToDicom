@@ -1,11 +1,12 @@
 {
     "objectscript.conn": {
-        "active": false,
+        "active": true,
         "username": "SuperUser",
+        "password": "SYS",
         "ns": "RESTTODICOM",
         "docker-compose": {
-            "service": "resttodicom",
-            "internalPort": 52773
+            "internalPort": 52773,
+            "service": "resttodicom"
         }
     }
 }

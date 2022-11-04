@@ -37,10 +37,26 @@ Method SetDicomToBdd(pRequest As RestToDicom.Message.SetDicomToBddRequest, Outpu
 
 	try{
 
-		Set out = ##class(RestToDicom.Table.Patient).%New()
+		Set out = ##class(RestToDicom.Table.PatientWorklist).%New()
 
         $$$ThrowOnError(##class(RestToDicom.Transformation.DicomDocumentToPatient).Transform(pRequest.Document,.out))
 
+		// save to Patient table
+		// If patient ID exist in the table, update the patient
+		// Else, create a new patient
+		if ##class(RestToDicom.Table.Patient).%ExistsId(out.PatientID) {
+			set tPatient = ##class(RestToDicom.Table.Patient).%OpenId(out.PatientID)
+		}
+		else {
+			set tPatient = ##class(RestToDicom.Table.Patient).%New(out)
+		}
+		set tPatient.PatientID = out.PatientID
+		set tPatient.PatientFullName = out.PatientFullName
+		set tPatient.PatientFirstName = out.PatientFirstName
+		set tPatient.PatientLastName  = out.PatientLastName
+		set tPatient.StudyInstanceID = 	out.StudyInstanceID
+		set tPatient.PatientSize = out.PatientSize
+		$$$ThrowOnError(tPatient.%Save())
 
 		Set out.SessionId = pRequest.SessionId
 		

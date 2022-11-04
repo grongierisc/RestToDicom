@@ -13,6 +13,8 @@ Property PatientID As %String(DISPLAYNAME = "ID", MAXLEN = "");
 
 Property StudyInstanceID As %String(DISPLAYNAME = "Study ID", MAXLEN = "");
 
+Property PatientSize As %String(DISPLAYNAME = "Size", MAXLEN = "");
+
 Property ScheduledProcedureStepSequence As RestToDicom.Object.ScheduledProcedureStepSequence(DISPLAYNAME = "Procedure");
 
 Storage Default

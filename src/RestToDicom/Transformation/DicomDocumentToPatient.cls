@@ -15,6 +15,7 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 <assign value='$P(source.DataSet.GetValueAt("PatientName",0),"^",1)' property='target.PatientFirstName' action='set' />
 <assign value='$P(source.DataSet.GetValueAt("PatientName",0),"^",2)' property='target.PatientLastName' action='set' />
 <assign value='source.DataSet.GetValueAt("PatientID",0)' property='target.PatientID' action='set' />
+<assign value='source.DataSet.GetValueAt("PatientSize",0)' property='target.PatientSize' action='set' />
 <assign value='source.DataSet.GetValueAt("RequestedProcedureID",0)' property='target.StudyInstanceID' action='set' />
 <assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].Modality",0)' property='target.ScheduledProcedureStepSequence.Modality' action='set' />
 <assign value='source.DataSet.GetValueAt("ScheduledProcedureStepSequence[1].ScheduledStationAETitle",0)' property='target.ScheduledProcedureStepSequence.ScheduledStationAETitle' action='set' />

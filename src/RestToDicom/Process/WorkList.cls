@@ -171,13 +171,15 @@ Method CreateIntermediateFindResponse(pDocIn As EnsLib.DICOM.Document, Output pD
 		#; Now build the dataset. A real implementation would examine the request's dataset to determine and
 		#; act upon the request matching criteria. Here we will just build a dummy worklist entry by way of an example
 		
+		Set tRandom = $Random(100)
+
 		Set tSC=pDocOut.SetValueAt("80372376","DataSet.AccessionNumber") 
 		If $$$ISERR(tSC) Quit
-		Set tSC=pDocOut.SetValueAt("Patient"_$Random(100)_"^Name","DataSet.PatientName")
+		Set tSC=pDocOut.SetValueAt("Patient"_tRandom_"^Name","DataSet.PatientName")
 		If $$$ISERR(tSC) Quit
-		Set tSC=pDocOut.SetValueAt($Random(100),"DataSet.PatientID")
+		Set tSC=pDocOut.SetValueAt(tRandom,"DataSet.PatientID")
 		If $$$ISERR(tSC) Quit
-		Set tSC=pDocOut.SetValueAt($Random(100),"DataSet.PatientSize")
+		Set tSC=pDocOut.SetValueAt($Random(200),"DataSet.PatientSize")
 		If $$$ISERR(tSC) Quit
 		Set tSC=pDocOut.SetValueAt("1.2.40.0.13.0.192.168.1.3.13594894.1206712911593."_..StudyInstanceCounter,"DataSet.StudyInstanceUID")
 		If $$$ISERR(tSC) Quit

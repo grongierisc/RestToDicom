@@ -1,11 +1,11 @@
-Class RestToDicom.Table.Patient Extends (%Persistent, RestToDicom.Object.Patient, Form.Adaptor, %JSON.Adaptor) [ DdlAllowed ]
+Class RestToDicom.Table.PatientWorklist Extends (%Persistent, RestToDicom.Object.Patient, Form.Adaptor, %JSON.Adaptor) [ DdlAllowed ]
 {
 
-Parameter XMLTYPE = "PatientTable";
+Parameter XMLTYPE = "PatientsTable";
 
 /// Form name, not a global key so it can be anything
 /// Set to empty string (like here) to not have a class as a form 
-Parameter FORMNAME = "Patient";
+Parameter FORMNAME = "PatientWorklist";
 
 /// Default permissions
 /// Objects of this form can be Created, Read, Updated and Deleted
@@ -31,7 +31,7 @@ Index SessionIdIDX On SessionId;
 
 Storage Default
 {
-<Data name="PatientDefaultData">
+<Data name="PatientWorklistDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
@@ -48,23 +48,23 @@ Storage Default
 <Value>PatientID</Value>
 </Value>
 <Value name="6">
-<Value>ScheduledProcedureStepSequence</Value>
-</Value>
-<Value name="7">
-<Value>SessionId</Value>
-</Value>
-<Value name="8">
-<Value>TimeStamp</Value>
-</Value>
-<Value name="9">
 <Value>StudyInstanceID</Value>
 </Value>
+<Value name="7">
+<Value>ScheduledProcedureStepSequence</Value>
+</Value>
+<Value name="8">
+<Value>SessionId</Value>
+</Value>
+<Value name="9">
+<Value>TimeStamp</Value>
+</Value>
 </Data>
-<DataLocation>^RestToDicom.Table.PatientD</DataLocation>
-<DefaultData>PatientDefaultData</DefaultData>
-<IdLocation>^RestToDicom.Table.PatientD</IdLocation>
-<IndexLocation>^RestToDicom.Table.PatientI</IndexLocation>
-<StreamLocation>^RestToDicom.Table.PatientS</StreamLocation>
+<DataLocation>^RestToDicoACDA.PatientWorkADDBD</DataLocation>
+<DefaultData>PatientWorklistDefaultData</DefaultData>
+<IdLocation>^RestToDicoACDA.PatientWorkADDBD</IdLocation>
+<IndexLocation>^RestToDicoACDA.PatientWorkADDBI</IndexLocation>
+<StreamLocation>^RestToDicoACDA.PatientWorkADDBS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }
 
