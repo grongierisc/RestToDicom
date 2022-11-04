@@ -39,8 +39,6 @@ Method SetDicomToBdd(pRequest As RestToDicom.Message.SetDicomToBddRequest, Outpu
 
 		Set out = ##class(RestToDicom.Table.Patient).%New()
 
-		$$$LOGINFO("titi")
-
         $$$ThrowOnError(##class(RestToDicom.Transformation.DicomDocumentToPatient).Transform(pRequest.Document,.out))
 
 
