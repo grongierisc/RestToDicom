@@ -102,6 +102,7 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="IPAddress">localhost</Setting>
   </Item>
   <Item Name="DICOM_TO_BDD" Category="" ClassName="Python.DicomBDD" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="%classpaths">/irisdev/app/src/RestToDicom/python</Setting>
   </Item>
   <Item Name="PROC_DICOM" Category="" ClassName="RestToDicom.Process.Dicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
@@ -111,6 +112,25 @@ XData ProductionDefinition
   <Item Name="PROC_RESTTODICOM" Category="" ClassName="RestToDicom.Process.RestToDicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="WS_REST" Category="" ClassName="RestToDicom.Service.RestToDicom" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="DICOM_TO_FHIR" Category="" ClassName="Python.DicomToFhir" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="FHIR_CLIENT" Category="" ClassName="Python.FhirClient" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="HL7_TO_SDA" Category="" ClassName="RestToDicom.Process.HL7toSDA" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="TargetConfigName">SDA_TO_FHIR</Setting>
+  </Item>
+  <Item Name="SDA_TO_FHIR" Category="" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="TargetConfigName">FHIR_CLIENT</Setting>
+    <Setting Target="Host" Name="FHIRMetadataSet">HL7v40 / FHIR R4 Core Specification</Setting>
+    <Setting Target="Host" Name="TransmissionMode">individual</Setting>
+  </Item>
+  <Item Name="HL7_FILE" Category="" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="MessageSchemaCategory">2.5.1</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7_TO_SDA</Setting>
+    <Setting Target="Adapter" Name="FilePath">/irisdev/app/misc/hl7/in/</Setting>
+    <Setting Target="Adapter" Name="ArchivePath">/irisdev/app/misc/hl7/archive/</Setting>
+    <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
   </Item>
 </Production>
 }

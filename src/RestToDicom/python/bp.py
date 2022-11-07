@@ -8,7 +8,6 @@ from fhir.resources.patient import Patient
 from fhir.resources.observation import Observation
 
 from fhir.resources.humanname import HumanName
-from fhir.resources.contactpoint import ContactPoint
 from fhir.resources.reference import Reference
 from fhir.resources.codeableconcept import CodeableConcept
 from fhir.resources.coding import Coding
@@ -28,8 +27,10 @@ class DicomToFhir(BusinessProcess):
         # create a FHIR Patient resource
         patient = Patient()
 
+        self.log_info("Patient ID: " + t_patient.PatientID)
+
         # set the patient id
-        patient.id = t_patient.PatientID
+        patient.id = str(t_patient.PatientID).strip()
 
         # set the patient's name
         patient.name = [HumanName()]
@@ -55,18 +56,18 @@ class DicomToFhir(BusinessProcess):
         fhir_request = FhirRequest()
         fhir_request.resource = patient
 
-        self.send_request_sync("Python.FhirClient", fhir_request)
+        self.send_request_sync("FHIR_CLIENT", fhir_request)
 
         fhir_request.resource = observation
         
-        self.send_request_sync("Python.FhirClient", fhir_request)
-        
+        self.send_request_sync("FHIR_CLIENT", fhir_request)
+
     def send_to_fhir(self,request:FhirRequest):
-        self.send_request_sync("Python.FhirClient", request)       
+        self.send_request_sync("FHIR_CLIENT", request)       
 
 
 if __name__ == '__main__':
     bp = DicomToFhir()
-    request = iris.cls('RestToDicom.Message.SetDicomToBddRequest')._OpenId(100)
+    request = iris.cls('RestToDicom.Message.SetDicomToBddRequest')._OpenId(698)
     bp.create_patient_from_worklist(request)
     print("Done")

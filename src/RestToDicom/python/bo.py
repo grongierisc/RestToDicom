@@ -50,6 +50,27 @@ class FhirClient(BusinessOperation):
         # Save the resource to the FHIR server using the client
         self.client.resource(resource_type,**json.loads(resource.json())).save()
 
+        return iris.cls('Ens.Response')._New()
+
+    def on_message(self, message:'iris.HS.Message.FHIR.Request'):
+        """
+        > When a message is received, it calls the method on_message of the
+        parent class (BusinessOperation) to handle the message.
+        :param message: The message received
+        :type message: iris.Message
+        :return: None
+        """
+        response = iris.cls('HS.Message.FHIR.Response')._New()
+        response.Status = "200"
+
+        json_payload = json.loads(message.Payload.Read())
+        try:
+            self.client.resource(message.Type,**json_payload).save()
+        except Exception as e:
+            response.Status = "500"
+        
+        return response
+
 
 
 class RestToDicomBO(BusinessOperation):

@@ -171,7 +171,7 @@ Method CreateIntermediateFindResponse(pDocIn As EnsLib.DICOM.Document, Output pD
 		#; Now build the dataset. A real implementation would examine the request's dataset to determine and
 		#; act upon the request matching criteria. Here we will just build a dummy worklist entry by way of an example
 		
-		Set tRandom = $Random(100)
+		Set tRandom = $Random(10)
 
 		Set tSC=pDocOut.SetValueAt("80372376","DataSet.AccessionNumber") 
 		If $$$ISERR(tSC) Quit
