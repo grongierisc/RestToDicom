@@ -1,0 +1,74 @@
+    zn "%SYS"
+    Do ##class(Security.Users).UnExpireUserPasswords("*")
+    set $namespace="%SYS", name="DefaultSSL" do:'##class(Security.SSLConfigs).Exists(name) ##class(Security.SSLConfigs).Create(name) set url="https://pm.community.intersystems.com/packages/zpm/latest/installer" Do ##class(%Net.URLParser).Parse(url,.comp) set ht = ##class(%Net.HttpRequest).%New(), ht.Server = comp("host"), ht.Port = 443, ht.Https=1, ht.SSLConfiguration=name, st=ht.Get(comp("path")) quit:'st $System.Status.GetErrorText(st) set xml=##class(%File).TempFilename("xml"), tFile = ##class(%Stream.FileBinary).%New(), tFile.Filename = xml do tFile.CopyFromAndSave(ht.HttpResponse.Data) do ht.%Close(), $system.OBJ.Load(xml,"ck") do ##class(%File).Delete(xml)
+
+    // For python
+    do ##class(Security.Services).Get("%Service_CallIn",.prop)
+    set prop("Enabled")=1
+    set prop("AutheEnabled")=48
+    do ##class(Security.Services).Modify("%Service_CallIn",.prop)
+
+    // For front end api disable license 
+    // HS.HC.FHIRSQL.REST.FrontEndAPI.Map
+    set db="/usr/irissys/mgr/irislib"
+    set tDB = ##class(SYS.Database).%OpenId(db)
+    set tDB.ReadOnly = 0
+    zw tDB.%Save()
+
+    set db="/usr/irissys/mgr/hslib"
+    set tDB = ##class(SYS.Database).%OpenId(db)
+    set tDB.ReadOnly = 0
+    zw tDB.%Save()
+
+    zn "HSLIB"
+
+    // Enable FHIR SQL Builder
+    Do ##class(HS.HC.FHIRSQL.Utils.Setup).CreateWebApps("HSSYS",1)
+	Do ##class(HS.HC.FHIRSQL.Utils.Setup).DefineDocDBs("HSSYS")
+    
+
+    set namespace="FHIRSERVER"
+    Set appKey = "/fhir/r4"
+    Set strategyClass = "FHIRSQL.InteractionsStrategy"
+    Set metadataConfigKey = "HL7v40"
+    set importdir="/irisdev/app/src"
+
+    //Install a Foundation namespace and change to it
+    Do ##class(HS.HC.Util.Installer).InstallFoundation(namespace)
+    //Install a Foundation namespace and change to it
+    Do ##class(HS.HC.Util.Installer).InstallFoundation("RESTTODICOM")
+    zn namespace
+
+    Do $classMethod("HS.HC.FHIRSQL.Server.FHIRRepository","SetupInteractions")
+
+    // Install elements that are required for a FHIR-enabled namespace
+    Do ##class(HS.FHIRServer.Installer).InstallNamespace()
+
+    // Install an instance of a FHIR Service into the current namespace
+    Do ##class(HS.FHIRServer.Installer).InstallInstance(appKey, strategyClass, metadataConfigKey,"",0)
+
+    set strategy = ##class(HS.FHIRServer.API.InteractionsStrategy).GetStrategyForEndpoint(appKey)
+    set config = strategy.GetServiceConfigData()
+    set config.DebugMode = 4
+    do strategy.SaveServiceConfigData(config)
+
+    do $System.OBJ.LoadDir("/irisdev/app/install/HS","ck",,1)
+
+    zn "RESTTODICOM"
+
+    // Install elements that are required for a FHIR-enabled namespace
+    Do ##class(HS.FHIRServer.Installer).InstallNamespace()
+
+    do $system.OBJ.ImportDir("/irisdev/app/src/","*.cls;*.inc","cubk",.errors,1)
+
+    do $classmethod("Ens.Director", "SetAutoStart", "RestToDicom.Production", 0)
+
+    zpm "install pex-embbeded-python"
+
+    zw ##class(Grongier.PEX.Utils).RegisterComponent("bo","RestToDicomBO","/irisdev/app/src/RestToDicom/",1,"Python.DicomBDD")
+
+    zn "%SYS"
+
+    zw ##class(Security.Applications).Import("/irisdev/app/misc/ApplicationsExport.xml")
+
+    halt

@@ -1,12 +1,22 @@
-FROM intersystemsdc/irishealth-community:latest
+FROM arti.iscinternal.com/intersystems/irishealth:2022.3.0FHIRSQL.30.0
 LABEL maintainer="Guillaume Rongier <guillaume.rongier@intersystems.com>"
 
 COPY . /irisdev/app
 WORKDIR /irisdev/app
 
-RUN iris start $ISC_PACKAGE_INSTANCENAME quietly EmergencyId=sys,sys && \
-    sh install.sh $ISC_PACKAGE_INSTANCENAME sys RESTTODICOM && \
-    /bin/echo -e "sys\nsys\n" | iris stop $ISC_PACKAGE_INSTANCENAME quietly
+COPY key/iris.key /usr/irissys/mgr/iris.key
+
+COPY iris.script /tmp/iris.script
+
+# run iris and initial 
+RUN iris start IRIS \
+	&& iris session IRIS < /tmp/iris.script \
+	&& iris stop IRIS quietly
+
+ENV PYTHON_PATH=/usr/irissys/bin/irispython
+ENV IRISUSERNAME "SuperUser"
+ENV IRISPASSWORD "SYS"
+ENV IRISNAMESPACE "RESTTODICOM"
 
 WORKDIR /home/irisowner/
 
