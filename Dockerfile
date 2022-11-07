@@ -8,6 +8,8 @@ COPY key/iris.key /usr/irissys/mgr/iris.key
 
 COPY iris.script /tmp/iris.script
 
+RUN pip3 install -r requirements.txt
+
 # run iris and initial 
 RUN iris start IRIS \
 	&& iris session IRIS < /tmp/iris.script \
@@ -17,8 +19,6 @@ ENV PYTHON_PATH=/usr/irissys/bin/irispython
 ENV IRISUSERNAME "SuperUser"
 ENV IRISPASSWORD "SYS"
 ENV IRISNAMESPACE "RESTTODICOM"
-
-RUN pip3 install -r requirements.txt
 
 WORKDIR /home/irisowner/
 
