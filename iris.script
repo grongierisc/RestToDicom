@@ -27,7 +27,7 @@
 	Do ##class(HS.HC.FHIRSQL.Utils.Setup).DefineDocDBs("HSSYS")
     
 
-    set namespace="FHIRSERVER"
+    set namespace="RESTTODICOM"
     Set appKey = "/fhir/r4"
     Set strategyClass = "FHIRSQL.InteractionsStrategy"
     Set metadataConfigKey = "HL7v40"
@@ -35,8 +35,6 @@
 
     //Install a Foundation namespace and change to it
     Do ##class(HS.HC.Util.Installer).InstallFoundation(namespace)
-    //Install a Foundation namespace and change to it
-    Do ##class(HS.HC.Util.Installer).InstallFoundation("RESTTODICOM")
     zn namespace
 
     Do $classMethod("HS.HC.FHIRSQL.Server.FHIRRepository","SetupInteractions")
@@ -56,16 +54,15 @@
 
     zn "RESTTODICOM"
 
-    // Install elements that are required for a FHIR-enabled namespace
-    Do ##class(HS.FHIRServer.Installer).InstallNamespace()
-
     do $system.OBJ.ImportDir("/irisdev/app/src/","*.cls;*.inc","cubk",.errors,1)
 
     do $classmethod("Ens.Director", "SetAutoStart", "RestToDicom.Production", 0)
 
     zpm "install pex-embbeded-python"
 
-    zw ##class(Grongier.PEX.Utils).RegisterComponent("bo","RestToDicomBO","/irisdev/app/src/RestToDicom/",1,"Python.DicomBDD")
+    zw ##class(Grongier.PEX.Utils).RegisterComponent("bo","RestToDicomBO","/irisdev/app/src/RestToDicom/python",1,"Python.DicomBDD")
+    zw ##class(Grongier.PEX.Utils).RegisterComponent("bo","FhirClient","/irisdev/app/src/RestToDicom/python",1,"Python.FhirClient")
+    zw ##class(Grongier.PEX.Utils).RegisterComponent("bp","DicomToFhir","/irisdev/app/src/RestToDicom/python",1,"Python.DicomToFhir")
 
     zn "%SYS"
 

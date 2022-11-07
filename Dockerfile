@@ -18,5 +18,7 @@ ENV IRISUSERNAME "SuperUser"
 ENV IRISPASSWORD "SYS"
 ENV IRISNAMESPACE "RESTTODICOM"
 
+RUN pip3 install -r requirements.txt
+
 WORKDIR /home/irisowner/
 

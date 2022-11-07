@@ -339,6 +339,8 @@ Method CreateFindResponse(pInput As EnsLib.DICOM.Document) As %Status
 
                     Set tSC=..SendRequestAsync(..OperationBDD,tRequestBDD,0)
 
+                    Set tSC=..SendRequestAsync("Python.bp.DicomToFhir",tRequestBDD,0)
+
                     Do ..Response.Documents.Insert(pInput)
 
                     Set ..ResponseCount=..ResponseCount+1
