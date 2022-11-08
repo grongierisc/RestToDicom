@@ -2,7 +2,6 @@
 Class RestToDicom.Process.RestToDicom Extends Ens.BusinessProcessBPL
 {
 
-
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
@@ -28,10 +27,9 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.DicomDocuments" value="callresponse.Documents" action="set" />
 </response>
 </call>
-<foreach name='PourChaqueDocument' property='context.DicomDocuments' key='context.key' xpos='470' ypos='500' xend='200' yend='550' >
+<foreach name='PourChaqueDocument' property='context.DicomDocuments' key='context.key' xpos='470' ypos='500' xend='200' yend='450' >
 <transform name='DicomToObject' class='RestToDicom.Transformation.DicomDocumentToPatient' source='context.DicomDocuments.GetAt(context.key)' target='context.Patient' xpos='200' ypos='250' />
-<assign name="Set Response" property="context.tPatients" value="context.Patient" action="insert" key="context.key" xpos='200' ypos='350' disabled="true"/>
-<code name='Set Response' xpos='200' ypos='450' >
+<code name='Set Response' xpos='200' ypos='350' >
 <![CDATA[ do response.Patients.SetAt(##class(RestToDicom.Object.Patient).%New(),context.key)
  set response.Patients.GetAt(context.key).PatientID = context.Patient.PatientID 
  set response.Patients.GetAt(context.key).PatientFullName = context.Patient.PatientFullName 
@@ -64,5 +62,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </sequence>
 </process>
 }
+
 
 }
