@@ -91,7 +91,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
     <Setting Target="Host" Name="NumberOfWorkListEntries">10</Setting>
   </Item>
-  <Item Name="DICOM_TO_TCP" Category="" ClassName="RestToDicom.Operation.DicomTCP" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="DICOM_TO_TCP" Category="Demo" ClassName="RestToDicom.Operation.DicomTCP" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
     <Setting Target="Host" Name="DuplexTargetConfigName">PROC_DICOM</Setting>
     <Setting Target="Adapter" Name="LocalAET">ENS-SCU</Setting>
@@ -101,31 +101,32 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="IPPort">1112</Setting>
     <Setting Target="Adapter" Name="IPAddress">localhost</Setting>
   </Item>
-  <Item Name="DICOM_TO_BDD" Category="" ClassName="Python.DicomBDD" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="DICOM_TO_BDD" Category="Demo" ClassName="Python.DicomBDD" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="%classpaths">/irisdev/app/src/RestToDicom/python</Setting>
   </Item>
-  <Item Name="PROC_DICOM" Category="" ClassName="RestToDicom.Process.Dicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="PROC_DICOM" Category="Demo" ClassName="RestToDicom.Process.Dicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
     <Setting Target="Host" Name="OperationDuplexName">DICOM_TO_TCP</Setting>
     <Setting Target="Host" Name="OperationBDD">DICOM_TO_BDD</Setting>
   </Item>
-  <Item Name="PROC_RESTTODICOM" Category="" ClassName="RestToDicom.Process.RestToDicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="PROC_RESTTODICOM" Category="Demo" ClassName="RestToDicom.Process.RestToDicom" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="WS_REST" Category="" ClassName="RestToDicom.Service.RestToDicom" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="WS_REST" Category="Demo" ClassName="RestToDicom.Service.RestToDicom" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="DICOM_TO_FHIR" Category="" ClassName="Python.DicomToFhir" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="DICOM_TO_FHIR" Category="Demo" ClassName="Python.DicomToFhir" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
-  <Item Name="FHIR_CLIENT" Category="" ClassName="Python.FhirClient" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="FHIR_CLIENT" Category="Demo" ClassName="Python.FhirClient" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="%settings">http://localhost:52773/fhir/r4</Setting>
   </Item>
-  <Item Name="HL7_TO_SDA" Category="" ClassName="RestToDicom.Process.HL7toSDA" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HL7_TO_SDA" Category="Demo" ClassName="RestToDicom.Process.HL7toSDA" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="TargetConfigName">SDA_TO_FHIR</Setting>
   </Item>
-  <Item Name="SDA_TO_FHIR" Category="" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="SDA_TO_FHIR" Category="Demo" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="TargetConfigName">FHIR_CLIENT</Setting>
     <Setting Target="Host" Name="FHIRMetadataSet">HL7v40 / FHIR R4 Core Specification</Setting>
     <Setting Target="Host" Name="TransmissionMode">individual</Setting>
   </Item>
-  <Item Name="HL7_FILE" Category="" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HL7_FILE" Category="Demo" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.5.1</Setting>
     <Setting Target="Host" Name="TargetConfigNames">HL7_TO_SDA</Setting>
     <Setting Target="Adapter" Name="FilePath">/irisdev/app/misc/hl7/in/</Setting>
