@@ -3,9 +3,7 @@ EVN||202111051658|||||^^NPI
 PID|1||2^^^https://github.com/synthetichealth/synthea^~2^^^http://hospital.smarthealthit.org^MR~999-97-4582^^^&^SS~S99986284^^^&^DL~X84330364X^^^&^PPN||Masson^Livia^^^Mrs.^^||19920820|F|Simon^Livia^^||615 Avenue Lemaire^^Lyon^Auvergne-Rhone-Alpes^63000||^PRN^PH^^^555^286|||||||||||||||||||||
 PV1|1|O||424441002|||||||||||||||1^^^&&^VN|||||||||||||||||||||||||200812312325|20090101044004
 PV2|||72892002^Grossesse normale^SCT
-OBX|1||8302-2^Taille du corps^LN||20101014002504^^|cm^^UCUM|||||F|||20101014
-OBX|2||72514-3^Gravité de la douleur - 0-10 évaluation numérique verbale [Score] - Signalée^LN||20101014002504^^|{score}^^UCUM|||||F|||20101014
-OBX|3||29463-7^Poids corporel^LN||20101014002504^^|kg^^UCUM|||||F|||20101014
-OBX|4||39156-5^Indice de masse corporelle^LN||20101014002504^^|kg/m2^^UCUM|||||F|||20101014
-OBX|5||72166-2^Statut du tabagisme^LN||20171026002504^Ancien fumeur^SCT^^^^^^Ancien fumeur||||||F|||20171026
-
+OBX|1|ST|8302-2^Taille du corps^LN||130|cm
+OBX|2|ST|72514-3^Gravite de la douleur - 0-10 evaluation numerique verbale [Score] - Signalee^LN||3|{score}
+OBX|3|ST|29463-7^Poids corporel^LN||60|kg
+OBX|4|ST|39156-5^Indice de masse corporelle^LN||24.7|kg/m2
