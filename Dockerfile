@@ -1,10 +1,8 @@
-FROM arti.iscinternal.com/intersystems/irishealth:2022.3.0FHIRSQL.30.0
-LABEL maintainer="Guillaume Rongier <guillaume.rongier@intersystems.com>"
+ARG IMAGE=intersystemsdc/irishealth-community:preview
+FROM $IMAGE
 
 COPY . /irisdev/app
 WORKDIR /irisdev/app
-
-COPY key/iris.key /usr/irissys/mgr/iris.key
 
 COPY iris.script /tmp/iris.script
 
