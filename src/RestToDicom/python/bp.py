@@ -59,11 +59,11 @@ class DicomToFhir(BusinessProcess):
         self.send_request_sync("FHIR_CLIENT", fhir_request)
 
         fhir_request.resource = observation
-        
+
         self.send_request_sync("FHIR_CLIENT", fhir_request)
 
     def send_to_fhir(self,request:FhirRequest):
-        self.send_request_sync("FHIR_CLIENT", request)       
+        self.send_request_sync("FHIR_CLIENT", request)
 
 
 if __name__ == '__main__':
