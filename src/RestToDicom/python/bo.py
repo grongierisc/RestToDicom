@@ -1,3 +1,4 @@
+from base64 import b64encode
 from grongier.pex import BusinessOperation,Utils
 
 import iris
@@ -14,6 +15,10 @@ import json
 class FhirClient(BusinessOperation):
     client: SyncFHIRClient = None
 
+    def basic_auth(self,username, password):
+        token = b64encode(f"{username}:{password}".encode('utf-8')).decode("ascii")
+        return f'Basic {token}'
+
     def on_init(self):
         """
         It changes the current url if needed using the params of the
@@ -23,7 +28,8 @@ class FhirClient(BusinessOperation):
         if not hasattr(self,'url'):
             self.url = 'http://localhost:52773/fhir/r4'
 
-        self.client = SyncFHIRClient(url=self.url,extra_headers={"Content-Type":"application/json+fhir"})
+        self.client = SyncFHIRClient(url=self.url,extra_headers={"Content-Type":"application/json+fhir"}
+        , authorization= self.basic_auth('SuperUser', 'SYS'))
 
         # Using an InterSystems server that need an api key, using the header x-api-key
         #self.client = SyncFHIRClient(url='https://fhir.8ty581k3dgzj.static-test-account.isccloud.io', extra_headers={"x-api-key":"sVgCTspDTM4iHGn51K5JsaXAwJNmHkSG3ehxindk"})
@@ -41,6 +47,8 @@ class FhirClient(BusinessOperation):
         :type request: FhirRequest
         :return: None
         """
+        response = iris.cls('HS.FHIRServer.Interop.Response')._New()
+        response.Response.Status = "200"
         # Get the resource type from the request ( here "Organization" )
         resource_type = request.resource["resource_type"]
 
@@ -49,6 +57,8 @@ class FhirClient(BusinessOperation):
 
         # Save the resource to the FHIR server using the client
         self.client.resource(resource_type,**json.loads(resource.json())).save()
+
+        return response
 
     def on_message_from_hl7(self, message:'iris.HS.Message.FHIR.Request'):
         """
