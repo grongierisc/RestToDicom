@@ -24,4 +24,12 @@ services:
     - "52776:52773" # 52773 is the webserver/management portal port
     volumes:
       - ./:/irisdev/app
-
+  notebook:
+    build: 
+      context: notebook
+      dockerfile: dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebook/Notebooks:/Notebooks
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
