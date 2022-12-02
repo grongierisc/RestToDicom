@@ -45,11 +45,6 @@
     // Install an instance of a FHIR Service into the current namespace
     Do ##class(HS.FHIRServer.Installer).InstallInstance(appKey, strategyClass, metadataConfigKey,"",0)
 
-    set strategy = ##class(HS.FHIRServer.API.InteractionsStrategy).GetStrategyForEndpoint(appKey)
-    set config = strategy.GetServiceConfigData()
-    set config.DebugMode = 4
-    do strategy.SaveServiceConfigData(config)
-
     do $System.OBJ.LoadDir("/irisdev/app/install/HS","ck",,1)
 
     zn "RESTTODICOM"
