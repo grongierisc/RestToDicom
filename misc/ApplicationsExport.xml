@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApplicationsExport>
   <Applications>
-    <AutheEnabled>64</AutheEnabled>
+    <AutheEnabled>32</AutheEnabled>
     <AutoCompile>true</AutoCompile>
     <CookiePath>/api/resttodicom/v1/</CookiePath>
     <CSPZENEnabled>true</CSPZENEnabled>
@@ -28,7 +28,7 @@
     <UseCookies>2</UseCookies>
   </Applications>
   <Applications>
-    <AutheEnabled>64</AutheEnabled>
+    <AutheEnabled>32</AutheEnabled>
     <AutoCompile>true</AutoCompile>
     <CookiePath>/api/resttodicom/v1/patients/</CookiePath>
     <CSPZENEnabled>true</CSPZENEnabled>
