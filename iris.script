@@ -63,4 +63,9 @@
 
     zw ##class(Security.Applications).Import("/irisdev/app/misc/ApplicationsExport.xml")
 
+    ; zpm install openapi class definiton
+    zpm
+    install swagger-ui
+    q
+
     halt

@@ -12,7 +12,7 @@
             "FHIR SQL Demo": "http://localhost:${port}/csp/fhirsql/index.csp",
             "SQL Query": "http://localhost:${port}/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=RESTTODICOM",
             "FHIR server test": "http://localhost:${port}/fhir/r4/metadata",
-            "Swagger": "http://localhost:8080"
+            "Swagger": "http://localhost:52776/swagger-ui/index.html"
         }
     }
 }

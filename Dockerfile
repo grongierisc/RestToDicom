@@ -20,3 +20,8 @@ ENV IRISNAMESPACE "RESTTODICOM"
 
 WORKDIR /home/irisowner/
 
+COPY misc/RestToDicom.yaml /usr/irissys/csp/swagger-ui/swagger.yml 
+RUN old=http://localhost:52773/crud/_spec && \
+	new=./swagger.yml && \
+	sed -i "s|$old|$new|g" /usr/irissys/csp/swagger-ui/index.html
+

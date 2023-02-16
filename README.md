@@ -59,7 +59,7 @@ To access the different interfaces, you can use the following links:
 
 To fetch the data from the dicom interface, you can use the following link:
 
-- Dicom: http://localhost:8080/
+- Dicom: http://localhost:52776/swagger-ui/index.html
 
 To update the data from the HL7v2 interface, you can copy the file in the following folder:
 
