@@ -14,5 +14,6 @@
             "FHIR server test": "http://localhost:${port}/fhir/r4/metadata",
             "Swagger": "http://localhost:52776/swagger-ui/index.html"
         }
-    }
+    },
+    "python.analysis.typeCheckingMode": "basic"
 }
