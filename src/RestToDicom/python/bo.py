@@ -2,9 +2,6 @@ from base64 import b64encode
 from grongier.pex import BusinessOperation,Utils
 
 import iris
-
-from grongier.pex import BusinessOperation
-
 from msg import FhirRequest
 
 from fhirpy import SyncFHIRClient
@@ -28,7 +25,8 @@ class FhirClient(BusinessOperation):
         if not hasattr(self,'url'):
             self.url = 'http://localhost:52773/fhir/r4'
 
-        self.client = SyncFHIRClient(url=self.url,extra_headers={"Content-Type":"application/json+fhir"}
+        self.client = SyncFHIRClient(url=self.url,extra_headers={"Content-Type":"application/json+fhir",
+                                                                 "Prefer":"return=representation"}
         , authorization= self.basic_auth('SuperUser', 'SYS'))
 
         # Using an InterSystems server that need an api key, using the header x-api-key
