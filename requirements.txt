@@ -1,4 +1,4 @@
-fhirpy==1.3.0
-fhir.resources==6.2.2
+fhirpy==1.3.2
+fhir.resources==7.0.2
 iris_pex_embedded_python
 iris @ https://github.com/grongierisc/iris-embedded-python-wrapper/releases/download/v0.0.3/iris-0.0.3-py3-none-any.whl
